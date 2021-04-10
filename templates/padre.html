@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% block css %}
+        <link href="../css/style.css" rel="stylesheet" type="text/css">
+        {% endblock css %}
+        <title>P1 SIBW</title>
+    </head>
+    <body>
+        {% block comentarios %}
+        {% endblock comentarios %}
+        <header id="cabecera">
+            <a href="portada.html">
+                <img id="logo" src="../img/logo.png" alt="logo">
+            </a>
+
+            <div id="botones">
+                <a href="./portada.html" class="btn">Portada</a>
+
+                <a href="./portada.html" class="btn">Eventos</a>
+
+                <a href="./portada.html" class="btn">About me!</a>
+            </div>
+        </header>
+
+        <div id="fila_principal" class="fila">
+            <div id="panel_lateral_izquierdo" class="columna">
+                <img class="ico" id="twitter" src="../img/twitter.png" alt="twitter">
+                <img class="ico" id="reddit" src="../img/reddit.png" alt="reddit">
+                <img class="ico" id="youtube" src="../img/youtube.png" alt="youtube">
+            </div>
+
+            {% block panel_principal %}
+            {% endblock %}
+
+
+            {% block panel_lateral_derecho %}
+            <div id="panel_lateral_derecho">
+            </div>
+            {% endblock panel_lateral_derecho %}
+        </div>
+
+        <footer id="pie">
+            <p id="pie_body">Made with love! By @Olasergiolas</p>
+        </footer>
+        
+    </body>
+</html>

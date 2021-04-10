@@ -1,0 +1,122 @@
+{% extends "padre.html" %}
+
+
+{% block comentarios %}
+<script src="../JS/comments.js" defer></script>
+
+<div id="fill_gaps_warning" class="modal_warning">
+    <div class="modal_warning_frame">
+        <a href="javascript:void(0)" class="modal_warning_closebtn" onclick="close_fill_gaps_error()">&times;</a>
+        <p class="modal_warning_msg">Todos los campos han de ser rellenados</p>
+        <div class="modal_warning_decoration"></div>
+    </div>
+</div>
+
+<div id="wrong_mail_warning" class="modal_warning">
+    <div class="modal_warning_frame">
+        <a href="javascript:void(0)" class="modal_warning_closebtn" onclick="close_wrong_mail_error()">&times;</a>
+        <p class="modal_warning_msg">Introduzca un mail correcto</p>
+        <div class="modal_warning_decoration"></div>
+    </div>
+</div>
+{% endblock comentarios %}
+
+{% block panel_principal %}
+<div id="panel_principal" class="columna">
+    <article class ="event_info">
+        <section class="event_title">
+            <h3>28-06-2021</h3>
+            <h2>Hack in Paris</h2>
+            <h3>Organizado por Sysdream</h3>
+            
+        </section>
+
+        <section class="fila recuadro_articulo">
+            <section>
+                <p class="event_body">
+                    <a class="event_link" href="https://hackinparis.com/" >Hack in Paris</a> es un evento con una popularidad creciente cada año, 
+                    agrupando a expertos de seguridad informática y apasionados de la 
+                    industia en la capital francesa. En un recinto dedicado, los asistentes 
+                    podrán realmente apreciar el hacking aplicado a la vida real y las 
+                    consecuencias que las empresas han de afrontar por ello. Durante 5 días, 
+                    los asistentes podrán aprender sobre seguridad informática, espionaje 
+                    industrial, pentesting, seguridad física, análisis de malware, etc.  
+                    de la mano de instructores del más alto nivel.
+                </p>
+
+                <p class="event_body">
+                    La décima edición del evento, organizado por Sysdream, división de 
+                    ciberseguridad del Hub One group, tendrá lugar del 28 de Junio al 2 
+                    de Julio de 2021 en la Maison de la Chimie.
+                </p>
+            </section>
+
+            <section class="event_picture_container">
+                <img class="event_picture" src="../img/hackinparis.jpg" alt="hackinparis">
+                <p>Hack in Paris 2017 ©Sysdream</p>
+            </section>
+        </section>
+
+        <div class="share_menu">
+            <a href="evento_imprimir.html">
+                <img id="printer" src="../img/printer.webp" alt="print">
+            </a>
+            <img id="facebook" src="../img/facebook.png" alt="facebook">
+            <img id="twitter2" src="../img/twitter2.png" alt="twitter">
+        </div>
+    </article>
+</div>
+{% endblock panel_principal %}
+            
+{% block panel_lateral_derecho %}
+<div id="panel_lateral_derecho">
+    <button id="comments_btn" type="button" onclick="openComments()"><img class="ico" src="../img/message.png" alt="comments"></button>
+    <div id="comments_section">
+        <a href="javascript:void(0)" id="comments_closebtn" onclick="closeComments()">&times;</a>
+        <div id="bloque_comentarios">
+            {% for i in 0..1 %}
+            <div class="comentario">
+                <header class="titulo_comentario">
+                    <img class="profile_picture" src="../img/avatar.png" alt="avatar">
+                    <p class="username">Username</p>
+                    <div class="fecha_hora_comentario">
+                        <p class="fecha_comentario">10-2-2021</p>
+                        <p class="hora_comentario">Hora</p>
+                    </div>
+                </header>
+
+                <div class="contenido_comentario">
+                    <p class="parrafo_comentario"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod lectus vel finibus
+                        facilisis. {{loop.index}}</p>
+                </div>
+            </div>
+            {% endfor %}
+
+
+            <!--<div id="test" class="comentario">
+                <header class="titulo_comentario">
+                    <img class="profile_picture" src="../img/avatar.png" alt="avatar">
+                    <p class="username">Username</p>
+                    <div class="fecha_hora_comentario">
+                        <p class="fecha_comentario">10-2-2021</p>
+                        <p class="hora_comentario">Hora</p>
+                    </div>
+                </header>
+
+                <div class="contenido_comentario">
+                    <p class="parrafo_comentario">Comentario</p>
+                </div>
+            </div>-->
+        </div>
+        <div id="redactar_comentario">
+            <p id="titulo_form_comentario">Deja tu comentario!</p>
+            <form id="form_comentario">
+                <div class="form_seccion"><label class="label_campo">Nombre:</label><br> <input type="text" id="fname" name="fname" class="campo"></div><br>
+                <div class="form_seccion"><label class="label_campo">Mail:</label><br> <input type="text" id="fmail" name="fmail" class="campo"></div><br>
+                <div class="form_seccion"><label class="label_campo">Comentario:</label><br> <textarea oninput="censurar()" id="fcomment" name="fcomment" class="campo"></textarea></div><br>
+                <input type="button" value="Comentar" id="comentar_btn" onclick="comprobarCampos()">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock panel_lateral_derecho %}
