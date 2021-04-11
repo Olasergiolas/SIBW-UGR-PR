@@ -25,15 +25,15 @@
 <div id="panel_principal" class="columna">
     <article class ="event_info">
         <section class="event_title">
-            <h3>28-06-2021</h3>
-            <h2>Hack in Paris</h2>
-            <h3>Organizado por Sysdream</h3>
+            <h3>{{fecha_evento}}</h3>
+            <h2>{{nombre_evento}}</h2>
+            <h3>Organizado por {{organizador}}</h3>
             
         </section>
 
         <section class="fila recuadro_articulo">
             <section>
-                <p class="event_body">
+                <!--<p class="event_body">
                     <a class="event_link" href="https://hackinparis.com/" >Hack in Paris</a> es un evento con una popularidad creciente cada año, 
                     agrupando a expertos de seguridad informática y apasionados de la 
                     industia en la capital francesa. En un recinto dedicado, los asistentes 
@@ -48,12 +48,14 @@
                     La décima edición del evento, organizado por Sysdream, división de 
                     ciberseguridad del Hub One group, tendrá lugar del 28 de Junio al 2 
                     de Julio de 2021 en la Maison de la Chimie.
-                </p>
+                </p>-->
+
+                {{descripcion | raw}}
             </section>
 
             <section class="event_picture_container">
-                <img class="event_picture" src="../img/hackinparis.jpg" alt="hackinparis">
-                <p>Hack in Paris 2017 ©Sysdream</p>
+                <img class="event_picture" src="../img/{{nombre_imagen}}" alt="hackinparis">
+                <p>{{copyright}}</p>
             </section>
         </section>
 
