@@ -6,4 +6,3 @@
 
   echo $twig->render('evento_imprimir.html', []);
 ?>
-aaa

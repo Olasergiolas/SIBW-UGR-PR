@@ -75,9 +75,10 @@ function addComentario(){
     var new_msg = div.cloneNode(true);
 
     new_msg.querySelector(".username").innerHTML = username;
-    new_msg.querySelector(".parrafo_comentario").innerHTML = comment
-    new_msg.querySelector(".hora_comentario").innerHTML = fecha.getHours() + ":" + fecha.getMinutes();
-    new_msg.querySelector(".fecha_comentario").innerHTML = fecha.getDate() + '-' + (parseInt(fecha.getMonth())+1) + '-' + fecha.getFullYear();
+    new_msg.querySelector(".parrafo_comentario").innerHTML = comment;
+    new_msg.querySelector(".fecha_comentario").innerHTML = fecha.getFullYear() + '-' +
+        (parseInt(fecha.getMonth())+1) + '-' + fecha.getDate() + ' ' + fecha.getHours() + 
+        ':' + fecha.getMinutes() + ':' + fecha.getSeconds();
 
     document.getElementById("bloque_comentarios").appendChild(new_msg);
 }

@@ -25,9 +25,9 @@
 <div id="panel_principal" class="columna">
     <article class ="event_info">
         <section class="event_title">
-            <h3>{{fecha_evento}}</h3>
-            <h2>{{nombre_evento}}</h2>
-            <h3>Organizado por {{organizador}}</h3>
+            <h3>{{evento.fecha_evento}}</h3>
+            <h2>{{evento.nombre_evento}}</h2>
+            <h3>Organizado por {{evento.organizador}}</h3>
             
         </section>
 
@@ -50,12 +50,12 @@
                     de Julio de 2021 en la Maison de la Chimie.
                 </p>-->
 
-                {{descripcion | raw}}
+                {{evento.descripcion | raw}}
             </section>
 
             <section class="event_picture_container">
-                <img class="event_picture" src="../img/{{nombre_imagen}}" alt="hackinparis">
-                <p>{{copyright}}</p>
+                <img class="event_picture" src="../img/{{evento.nombre_imagen}}" alt="hackinparis">
+                <p>{{evento.copyright}}</p>
             </section>
         </section>
 
@@ -76,20 +76,18 @@
     <div id="comments_section">
         <a href="javascript:void(0)" id="comments_closebtn" onclick="closeComments()">&times;</a>
         <div id="bloque_comentarios">
-            {% for i in 0..1 %}
+            {% for comentario in comentarios %}
             <div class="comentario">
                 <header class="titulo_comentario">
                     <img class="profile_picture" src="../img/avatar.png" alt="avatar">
-                    <p class="username">Username</p>
+                    <p class="username">{{comentario.usuario}}</p>
                     <div class="fecha_hora_comentario">
-                        <p class="fecha_comentario">10-2-2021</p>
-                        <p class="hora_comentario">Hora</p>
+                        <p class="fecha_comentario">{{comentario.fecha_hora}}</p>
                     </div>
                 </header>
 
                 <div class="contenido_comentario">
-                    <p class="parrafo_comentario"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum euismod lectus vel finibus
-                        facilisis. {{loop.index}}</p>
+                    <p class="parrafo_comentario">{{comentario.contenido}}</p>
                 </div>
             </div>
             {% endfor %}
