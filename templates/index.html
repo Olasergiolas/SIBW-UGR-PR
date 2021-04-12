@@ -2,35 +2,17 @@
 
 {% block panel_principal %}
 <div id="panel_principal" class="columna">
-    {% for fila, infos in listaeventos.info %}
-    <div class="fila">
-        {% for info in infos %}
-        <div id="ev{{ (loop.index - 1) + 3*(loop.parent.loop.index - 1) }}" class="evento">
+    <div class="fila_eventos">
+        {% for evento in listaeventos %}
+        <div style="background-image: url(../img/{{evento.icono}});" class="evento">
             <div class="info">
                 <a href="evento.html">
-                    <p>{{ info }}</p>
+                    <p>{{evento.nombre_evento}}</p>
                 </a>
             </div>
         </div>
         {% endfor %}
-        
-        <!--<div id="ev2" class="evento">
-            <div id="info2" class="info">
-                <a href="evento.html">
-                    <p>PlaidCTF 2021</p>
-                </a>
-            </div>
-        </div>
-        <div id="ev3" class="evento">
-            <div id="info3" class="info">
-                <a href="evento.html">
-                    <p>LINE CTF 2021</p>
-                </a>
-            </div>
-        </div>-->
     </div>
-    {% endfor %}
-
 
     <!--<div id="fila_eventos2" class="fila">
         <div id="ev4" class="evento">
