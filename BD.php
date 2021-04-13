@@ -100,4 +100,17 @@
 
     return $eventos;
   }
+
+  function getPalabrasCensuradas($mysqli){
+    $palabras_censuradas = array();
+
+    $res = $mysqli->query("SELECT palabra FROM banned_words");
+    if ($res->num_rows > 0){
+      while($row = $res->fetch_assoc()){
+        array_push($palabras_censuradas, $row['palabra']);
+      }
+    }
+
+    return $palabras_censuradas;
+  }
 ?>

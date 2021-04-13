@@ -50,12 +50,12 @@ function comprobarCampos() {
     
 }
 
-function censurar(){
+function censurar(palabras_censuradas){
     var comment = document.getElementById("fcomment");
     var comment_lower = comment.value.toLowerCase();
-    var banned_words = ["arch", "nintendo", "tonto"];
+    var palabras = JSON.parse(palabras_censuradas);
         
-    banned_words.forEach(function(element){
+    palabras.forEach(function(element){
         var censura = new Array(element.length + 1).join('*');
         var pos = comment_lower.indexOf(element);
 
