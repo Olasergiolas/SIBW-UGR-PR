@@ -11,13 +11,11 @@
     $idEv = -1;
   }
 
-  //QUITAR ESTO, EL CONTROLADOR DEBERÍA DE COMPROBAR SI SE HA CONECTADO YA( != NULL), Y SI NO, HACERLO
-  //Hacer una clase para la BD
-  $mysqli = conectarBD();
-  $evento = getEvento($idEv, $mysqli);
-  $comentarios = getComentarios($evento['nombre_evento'],
-    $evento['fecha_evento'], $mysqli);
-  $palabras_censuradas = getPalabrasCensuradas($mysqli);
+  $BD = new BD();
+  $evento = $BD->getEvento($idEv);
+  $comentarios = $BD->getComentarios($evento['nombre_evento'],
+    $evento['fecha_evento']);
+  $palabras_censuradas = $BD->getPalabrasCensuradas();
 
   echo $twig->render('evento.html', ['evento' => $evento, 'comentarios' => $comentarios, 
     'palabras_censuradas' => $palabras_censuradas]);

@@ -5,9 +5,8 @@
   $loader = new \Twig\Loader\FilesystemLoader('templates');
   $twig = new \Twig\Environment($loader);
 
-  $mysqli = conectarBD();
-
-  $eventos = getEventosBriefing($mysqli);
+  $BD = new BD();
+  $eventos = $BD->getEventosBriefing();
 
   echo $twig->render('index.html', ['listaeventos' => $eventos]);
 ?>
