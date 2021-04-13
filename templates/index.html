@@ -6,7 +6,7 @@
         {% for evento in listaeventos %}
         <div style="background-image: url(../img/{{evento.icono}});" class="evento">
             <div class="info">
-                <a href="evento.html">
+                <a href="evento.php?ev={{evento.id}}">
                     <p>{{evento.nombre_evento}}</p>
                 </a>
             </div>

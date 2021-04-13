@@ -1,13 +1,15 @@
 <?php
   class BD {
-    public $mysqli;
+    private $mysqli = NULL;
+
+    public function __construct() {
+      $this->mysqli = $this->conectarBD();
+    }
 
     function getEvento($idEv) {
-      $this->conectarBD();
-
       //Parámetros del evento
       $nombreEvento = "Nombre por defecto";
-      $fechaEvento = "01/01/1970";
+      $fechaEvento = "1970/01/01";
       $organizador = "default";
       $descripcion = "default";
       $url = "default";
@@ -15,32 +17,34 @@
       //Parámetros de la imagen del evento
       $nombre_imagen = "default_event.jpg";
       $copyright_imagen = "default";
-  
+
       //Petición de la información del evento
-      $res = $this->$mysqli->query("SELECT nombre_evento, fecha, organizador, descripcion, url
-        FROM eventos WHERE id =" . $idEv);
+      $q = "SELECT nombre_evento, fecha, organizador, descripcion, url
+        FROM eventos WHERE id = ?";
+      $q_preparada = $this->mysqli->prepare($q);
+      $q_preparada->execute([$idEv]);
+      $res = $q_preparada->fetch();
   
-      if ($res->num_rows > 0){
-        //Datos del evento
-        $row = $res->fetch_assoc();
-        $nombreEvento = $row['nombre_evento'];
-        $fechaEvento = $row['fecha'];
-        $organizador = $row['organizador'];
-        $descripcion = $row['descripcion'];
-        $url = $row['url'];
+      //Datos del evento
+      if (!empty($res)){
+        $nombreEvento = $res['nombre_evento'];
+        $fechaEvento = $res['fecha'];
+        $organizador = $res['organizador'];
+        $descripcion = $res['descripcion'];
+        $url = $res['url'];
       }
+      
       $descripcion_procesada = $this->procesarCuerpoEvento($descripcion);
-  
-  
-      //Petición de la información del evento
-      $res = $this->$mysqli->query("SELECT nombre_imagen, copyright FROM imagenes
-      WHERE nombre_evento = '$nombreEvento' AND fecha = '$fechaEvento'");
-    
-      if ($res->num_rows > 0){
-        //Datos de la imágen del evento
-        $row = $res->fetch_assoc();
-        $nombre_imagen = $row['nombre_imagen'];
-        $copyright_imagen = $row['copyright'];
+
+      $q = "SELECT nombre_imagen, copyright FROM imagenes
+      WHERE nombre_evento = ? AND fecha = ?";
+      $q_preparada = $this->mysqli->prepare($q);
+      $q_preparada->execute([$nombreEvento, $fechaEvento]);
+      $res = $q_preparada->fetch();
+
+      if (!empty($res)){
+        $nombre_imagen = $res['nombre_imagen'];
+        $copyright_imagen = $res['copyright'];
       }
   
       $evento = array('nombre_evento' => $nombreEvento,
@@ -59,58 +63,59 @@
     }
     
     function conectarBD() {
-      if (is_null($this->$mysqli)){
-        $this->$mysqli = new mysqli("localhost", "sergiogarcia", "QVeApauxsYj3XcktpdnO", "SIBW");
-        if ($mysqli->connect_errno) {
-          echo ("Fallo al conectar: " . $mysqli->connect_error);
-        }
+      $pdo = NULL;
+      try {
+        $pdo = new PDO("mysql:host=localhost;dbname=SIBW", 'sergiogarcia', 'QVeApauxsYj3XcktpdnO');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      } catch(PDOException $e) {
+        echo "Conexión fallida: " . $e->getMessage();
       }
+      return $pdo;
     }
   
     function getComentarios($nombre_evento, $fecha_evento){
-      $this->conectarBD();
+      $q = "SELECT usuario, fecha_hora, contenido FROM comentarios
+        WHERE nombre_evento = ? AND fecha_evento = ?";
+      $q_preparada = $this->mysqli->prepare($q);
+      $q_preparada->execute([$nombre_evento, $fecha_evento]);
 
-      $res = $this->$mysqli->query("SELECT usuario, fecha_hora, contenido FROM comentarios
-      WHERE nombre_evento = '$nombre_evento' AND fecha_evento = '$fecha_evento'");
-  
       $comentarios = array();
-      if ($res->num_rows > 0){
-        while($row = $res->fetch_assoc()){
-          $comentario = array('usuario' => $row['usuario'], 'fecha_hora' => $row['fecha_hora'],
-          'contenido' => $row['contenido']);
-  
-          array_push($comentarios, $comentario);
-        }
+      while($res = $q_preparada->fetch()){
+        $comentario = array('usuario' => $res['usuario'], 'fecha_hora' => $res['fecha_hora'],
+        'contenido' => $res['contenido']);
+
+        array_push($comentarios, $comentario);
       }
   
       return $comentarios;
     }
   
     function getEventosBriefing(){
-      $this->conectarBD();
       $eventos = array();
-  
-      $res = $this->$mysqli->query("SELECT nombre_evento, icono FROM eventos");
-      if ($res->num_rows > 0){
-        while($row = $res->fetch_assoc()){
-          $evento = array('nombre_evento' => $row['nombre_evento'], 'icono' => $row['icono']);
-  
-          array_push($eventos, $evento);
-        }
+
+      $q = "SELECT nombre_evento, icono, id FROM eventos";
+      $q_preparada = $this->mysqli->prepare($q);
+      $q_preparada->execute();
+
+      while($res = $q_preparada->fetch()){
+        $evento = array('nombre_evento' => $res['nombre_evento'], 'icono' => $res['icono'],
+        'id' => $res['id']);
+
+        array_push($eventos, $evento);
       }
   
       return $eventos;
     }
   
     function getPalabrasCensuradas(){
-      $this->conectarBD();
       $palabras_censuradas = array();
+
+      $q = "SELECT palabra FROM banned_words";
+      $q_preparada = $this->mysqli->prepare($q);
+      $q_preparada->execute();
   
-      $res = $this->$mysqli->query("SELECT palabra FROM banned_words");
-      if ($res->num_rows > 0){
-        while($row = $res->fetch_assoc()){
-          array_push($palabras_censuradas, $row['palabra']);
-        }
+      while($res = $q_preparada->fetch()){
+        array_push($palabras_censuradas, $res['palabra']);
       }
   
       return $palabras_censuradas;
