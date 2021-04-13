@@ -19,6 +19,6 @@
     $evento['fecha_evento'], $mysqli);
   $palabras_censuradas = getPalabrasCensuradas($mysqli);
 
-  echo $twig->render('evento.html', [evento => $evento, comentarios => $comentarios, 
-    palabras_censuradas => $palabras_censuradas]);
+  echo $twig->render('evento.html', ['evento' => $evento, 'comentarios' => $comentarios, 
+    'palabras_censuradas' => $palabras_censuradas]);
 ?>
