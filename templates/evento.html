@@ -54,9 +54,17 @@
             </section>
 
             <section class="event_picture_container">
-                <img class="event_picture" src="../img/{{evento.nombre_imagen}}" alt="hackinparis">
-                <p>{{evento.copyright}}</p>
+                <img class="event_picture" src="../img/{{evento.imagen_principal.nombre_imagen}}" alt="hackinparis">
+                <p>{{evento.imagen_principal.copyright_imagen}}</p>
             </section>
+        </section>
+
+        <section id="galeria">
+            {% for imagen in evento.imagenes_galeria %}
+            <a class="contenedor_foto_galeria" href="../img/{{imagen.nombre_imagen}}">
+            <img src="../img/{{imagen.nombre_imagen}}" alt="imagen" class="foto_galeria">
+            </a>
+            {% endfor %}
         </section>
 
         <div class="share_menu">

@@ -14,9 +14,9 @@
       $descripcion = "default";
       $url = "default";
   
-      //Parámetros de la imagen del evento
-      $nombre_imagen = "default_event.jpg";
-      $copyright_imagen = "default";
+      //Parámetros de la imagen principal del evento por defecto
+      $imagen_principal = array('nombre_imagen' => "default_event.jpg",
+      'copyright_imagen' => "default");
 
       //Petición de la información del evento
       $q = "SELECT nombre_evento, fecha, organizador, descripcion, url
@@ -34,26 +34,38 @@
         $url = $res['url'];
       }
       
+      //Darle formato al cuerpo del evento
       $descripcion_procesada = $this->procesarCuerpoEvento($descripcion);
 
+      //Obtenemos las imágenes del evento
       $q = "SELECT nombre_imagen, copyright FROM imagenes
       WHERE nombre_evento = ? AND fecha = ?";
       $q_preparada = $this->mysqli->prepare($q);
       $q_preparada->execute([$nombreEvento, $fechaEvento]);
       $res = $q_preparada->fetch();
 
+      //Imagen principal del evento
       if (!empty($res)){
-        $nombre_imagen = $res['nombre_imagen'];
-        $copyright_imagen = $res['copyright'];
+        $imagen_principal = array('nombre_imagen' => $res['nombre_imagen'],
+        'copyright_imagen' => $res['copyright']);
+      }
+
+      //Resto de imágenes para añadirlas a la galería
+      $imagenes_galeria = array();
+      while($res = $q_preparada->fetch()){
+        $imagen = array('nombre_imagen' => $res['nombre_imagen'],
+          'copyright_imagen' => $res['copyright']);
+        array_push($imagenes_galeria, $imagen);
       }
   
       $evento = array('nombre_evento' => $nombreEvento,
       'fecha_evento' => $fechaEvento, 'organizador' => $organizador, 'descripcion' => $descripcion_procesada,
-      'url' => $url, 'nombre_imagen' => $nombre_imagen, 'copyright' => $copyright_imagen);
+      'url' => $url, 'imagen_principal' => $imagen_principal, 'imagenes_galeria' => $imagenes_galeria);
   
       return $evento;
     }
   
+    //Dar formato al cuerpo del evento
     function procesarCuerpoEvento($descripcion) {
       $descripcion_procesada = '<p class="event_body">';
       $descripcion_procesada .= str_replace("\n", '</p><p class="event_body">', $descripcion);
@@ -62,6 +74,7 @@
       return $descripcion_procesada;
     }
     
+    //Conexión a la BD mediante PDO
     function conectarBD() {
       $pdo = NULL;
       try {
@@ -73,6 +86,7 @@
       return $pdo;
     }
   
+    //Obtener los comentarios de un evento
     function getComentarios($nombre_evento, $fecha_evento){
       $q = "SELECT usuario, fecha_hora, contenido FROM comentarios
         WHERE nombre_evento = ? AND fecha_evento = ?";
@@ -90,6 +104,7 @@
       return $comentarios;
     }
   
+    //Obtener la información de los eventos que será mostrada en la portada
     function getEventosBriefing(){
       $eventos = array();
 
@@ -107,6 +122,7 @@
       return $eventos;
     }
   
+    //Obtener listado de palabras censuradas
     function getPalabrasCensuradas(){
       $palabras_censuradas = array();
 

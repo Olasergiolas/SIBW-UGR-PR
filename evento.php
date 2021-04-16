@@ -19,6 +19,7 @@
     $palabras_censuradas = $BD->getPalabrasCensuradas();
   }
 
+  //Rechazamos la petición si ev no es un número
   else{
     http_response_code(400);
     die('Petición mal formada');
