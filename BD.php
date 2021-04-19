@@ -1,27 +1,28 @@
 <?php
   class BD {
-    private $mysqli = NULL;
+    private $pdo = NULL;
 
     public function __construct() {
-      $this->mysqli = $this->conectarBD();
+      $this->pdo = $this->conectarBD();
     }
 
     function getEvento($idEv) {
-      //Parámetros del evento
+      //Atributos del evento por defecto
       $nombreEvento = "Nombre por defecto";
       $fechaEvento = "1970/01/01";
       $organizador = "default";
       $descripcion = "default";
       $url = "default";
+      $id = -1;
   
-      //Parámetros de la imagen principal del evento por defecto
+      //Atributos de la imagen principal del evento por defecto
       $imagen_principal = array('nombre_imagen' => "default_event.jpg",
       'copyright_imagen' => "default");
 
       //Petición de la información del evento
-      $q = "SELECT nombre_evento, fecha, organizador, descripcion, url
+      $q = "SELECT id, nombre_evento, fecha, organizador, descripcion, url
         FROM eventos WHERE id = ?";
-      $q_preparada = $this->mysqli->prepare($q);
+      $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$idEv]);
       $res = $q_preparada->fetch();
   
@@ -32,6 +33,7 @@
         $organizador = $res['organizador'];
         $descripcion = $res['descripcion'];
         $url = $res['url'];
+        $id = $res['id'];
       }
       
       //Darle formato al cuerpo del evento
@@ -40,7 +42,7 @@
       //Obtenemos las imágenes del evento
       $q = "SELECT nombre_imagen, copyright FROM imagenes
       WHERE nombre_evento = ? AND fecha = ?";
-      $q_preparada = $this->mysqli->prepare($q);
+      $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$nombreEvento, $fechaEvento]);
       $res = $q_preparada->fetch();
 
@@ -58,7 +60,7 @@
         array_push($imagenes_galeria, $imagen);
       }
   
-      $evento = array('nombre_evento' => $nombreEvento,
+      $evento = array('id_evento' => $id, 'nombre_evento' => $nombreEvento,
       'fecha_evento' => $fechaEvento, 'organizador' => $organizador, 'descripcion' => $descripcion_procesada,
       'url' => $url, 'imagen_principal' => $imagen_principal, 'imagenes_galeria' => $imagenes_galeria);
   
@@ -90,7 +92,7 @@
     function getComentarios($nombre_evento, $fecha_evento){
       $q = "SELECT usuario, fecha_hora, contenido FROM comentarios
         WHERE nombre_evento = ? AND fecha_evento = ?";
-      $q_preparada = $this->mysqli->prepare($q);
+      $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$nombre_evento, $fecha_evento]);
 
       $comentarios = array();
@@ -109,7 +111,7 @@
       $eventos = array();
 
       $q = "SELECT nombre_evento, icono, id FROM eventos";
-      $q_preparada = $this->mysqli->prepare($q);
+      $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute();
 
       while($res = $q_preparada->fetch()){
@@ -127,7 +129,7 @@
       $palabras_censuradas = array();
 
       $q = "SELECT palabra FROM banned_words";
-      $q_preparada = $this->mysqli->prepare($q);
+      $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute();
   
       while($res = $q_preparada->fetch()){
