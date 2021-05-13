@@ -5,6 +5,8 @@
   $loader = new \Twig\Loader\FilesystemLoader('templates');
   $twig = new \Twig\Environment($loader);
 
+  session_start();
+
   $respuesta = procesarPeticion();
   if (!is_null($respuesta)){
     $evento = $respuesta['evento'];
@@ -13,5 +15,5 @@
   }
 
   echo $twig->render('evento.html', ['evento' => $evento, 'comentarios' => $comentarios, 
-    'palabras_censuradas' => $palabras_censuradas]);
+    'palabras_censuradas' => $palabras_censuradas, 'usuario' => $_SESSION['username']]);
 ?>

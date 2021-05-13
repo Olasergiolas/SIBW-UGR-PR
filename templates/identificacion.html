@@ -1,0 +1,47 @@
+{% extends "padre.html" %}
+
+{% block panel_principal %}
+<script src="../JS/identificacion.js" defer></script>
+
+<div id="panel_principal" class="columna">
+{% if mode == 'login' %}
+    <div class="panel_identificacion" id="panel_login">
+        <img id="logo_registro" src="../img/logo.png" alt="logo">
+        <form id="formulario_login" action="/identificacion.php" method="POST">
+            <label for="fname">Nombre de usuario</label><br>
+            <input type="text" id="fname" name="fname"><br><br>
+            <label for="fpass">Contraseña</label><br>
+            <input type="password" id="fpass" name="fpass"><br><br>
+            <input type="submit" value="Enviar">
+        </form>
+
+        {% if status == -1 %}
+        <p class="error">Nombre o contraseña de usuario incorrecto</p>
+        {% endif %}
+
+        <p id="footer_registro">¿No estás registrado? <a href="../registro.php" class="a_sobre_blanco">Crea una nueva cuenta.</a></p>
+    </div>
+{% endif %}
+
+{% if mode == 'registro' %}
+<div class="panel_identificacion" id="panel_registro">
+    <img id="logo_registro" src="../img/logo.png" alt="logo">
+    <form id="formulario_registro" action="/registro.php" method="POST">
+        <label for="fmail">Correo electrónico</label><br>
+        <input type="text" id="fmail" name="fmail"><br><br>
+        <label for="fname">Nombre de usuario</label><br>
+        <input type="text" id="fname" name="fname"><br><br>
+        <label for="fpass">Contraseña</label><br>
+        <input type="password" id="fpass" name="fpass"><br><br>
+        <input type="submit" value="Enviar">
+    </form>
+
+    {% if status == -1 %}
+    <p class="error">Nombre de usuario ya existente</p>
+    {% endif %}
+    
+    <p id="footer_registro">¿Ya tienes cuenta? <a href="../identificacion.php" class="a_sobre_blanco">Inicia sesión.</a></p>
+</div>
+{% endif %}
+</div>
+{% endblock panel_principal %}

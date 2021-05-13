@@ -20,7 +20,11 @@
 
                 <a href="./index.php" class="btn">Eventos</a>
 
-                <a href="./index.php" class="btn">About me!</a>
+                {% if usuario %}
+                <a href="./logout.php" class="btn">Logout</a>
+                {% else %}
+                <a href="./identificacion.php" class="btn">Identifícate</a>
+                {% endif %}
             </div>
         </header>
 

@@ -138,6 +138,35 @@
   
       return $palabras_censuradas;
     }
+
+    function registrarUsuario($datosUsuario){
+      $res = true;
+      $q = "insert into usuarios(username, password, email, tipo) values(?, ?, ?, 'registrado')";
+      $q_preparada = $this->pdo->prepare($q);
+
+      try {
+        $q_preparada->execute([$datosUsuario['username'], password_hash($datosUsuario['password'], PASSWORD_DEFAULT), $datosUsuario['mail']]);
+      } catch (PDOException $e) {
+        $res = false;
+      }
+
+      return $res;
+    }
+
+    function login($datosUsuario){
+      $res = false;
+
+      $q = "SELECT password from usuarios where username = ?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$datosUsuario['username']]);
+
+      $res_query = $q_preparada->fetch();
+      if (!empty($res_query)){
+        $res = password_verify($datosUsuario['password'], $res_query['password']);
+      }
+
+      return $res;
+    }
   }
 
   function procesarPeticion(){
@@ -167,4 +196,9 @@
 
     return $respuesta;
   }
+
+    /*$q = "SELECT usuario, fecha_hora, contenido FROM comentarios
+        WHERE nombre_evento = ? AND fecha_evento = ?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$nombre_evento, $fecha_evento]);*/
 ?>
