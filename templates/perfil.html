@@ -1,0 +1,28 @@
+{% extends "padre.html" %}
+
+{% block panel_principal %}
+<div id="panel_principal" class="columna">
+    <div class="panel_perfil">
+        <img id="logo_registro" src="../img/logo.png" alt="logo">
+        {% if not usuario %}
+            <p>No has iniciado sesión, pulsa <a class="a_sobre_blanco" href="../identificacion.php">aquí</a> para hacerlo</p>
+        {% else %}
+        <p>Usuario de tipo: <b>{{datos.tipo}}.</b></p>
+        <form id="formulario_edicion" action="/perfil.php" method="POST">
+            <label for="fmail">Correo electrónico</label><br>
+            <input type="text" id="fmail" name="fmail" value={{datos.email}} required><br><br>
+            <label for="fname">Nombre de usuario</label><br>
+            <input type="text" id="fname" name="fname" value={{datos.username}} required><br><br>
+            <label for="fpass">Contraseña</label><br>
+            <input type="password" id="fpass" name="fpass"><br><br>
+            <input type="submit" value="Enviar">
+        </form>
+
+        {% if status == 'error' %}
+        <p class="error">Error, nombre de usuario o email ya en uso.</p>
+        {% endif %}
+        
+        {% endif %}
+    </div>
+</div>
+{% endblock panel_principal %}

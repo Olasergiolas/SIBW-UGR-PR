@@ -66,6 +66,7 @@ body {
 
 
 .contenido-dropdown{
+    margin-top: 50px;
     width: 93px;
     justify-content: center;
     align-items: center;
@@ -82,6 +83,12 @@ body {
 
 
 .dropdown:hover .contenido-dropdown {display: flex;}
+
+
+.dropdown{
+    display: flex;
+    justify-content: center;
+}
 
 
 .opcion_menu{
@@ -614,6 +621,27 @@ a {
 .error{
     font-weight: bold;
     color: red;
+}
+
+
+.panel_perfil {
+    width: 400px;
+    background-color: white;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0 2px 1px rgba(0,0,0,0.09), 
+    0 4px 2px rgba(0,0,0,0.09), 
+    0 8px 4px rgba(0,0,0,0.09), 
+    0 16px 8px rgba(0,0,0,0.09),
+    0 32px 16px rgba(0,0,0,0.09);
+}
+
+
+#formulario_edicion{
+    margin-bottom: 30px;
 }
 
 

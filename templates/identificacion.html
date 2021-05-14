@@ -9,9 +9,9 @@
         <img id="logo_registro" src="../img/logo.png" alt="logo">
         <form id="formulario_login" action="/identificacion.php" method="POST">
             <label for="fname">Nombre de usuario</label><br>
-            <input type="text" id="fname" name="fname"><br><br>
+            <input type="text" id="fname" name="fname" required><br><br>
             <label for="fpass">Contraseña</label><br>
-            <input type="password" id="fpass" name="fpass"><br><br>
+            <input type="password" id="fpass" name="fpass" required><br><br>
             <input type="submit" value="Enviar">
         </form>
 
@@ -28,16 +28,16 @@
     <img id="logo_registro" src="../img/logo.png" alt="logo">
     <form id="formulario_registro" action="/registro.php" method="POST">
         <label for="fmail">Correo electrónico</label><br>
-        <input type="text" id="fmail" name="fmail"><br><br>
+        <input type="text" id="fmail" name="fmail" required><br><br>
         <label for="fname">Nombre de usuario</label><br>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="fname" name="fname" required><br><br>
         <label for="fpass">Contraseña</label><br>
-        <input type="password" id="fpass" name="fpass"><br><br>
+        <input type="password" id="fpass" name="fpass" required><br><br>
         <input type="submit" value="Enviar">
     </form>
 
     {% if status == -1 %}
-    <p class="error">Nombre de usuario ya existente</p>
+    <p class="error">Nombre de usuario o email ya existente</p>
     {% endif %}
     
     <p id="footer_registro">¿Ya tienes cuenta? <a href="../identificacion.php" class="a_sobre_blanco">Inicia sesión.</a></p>

@@ -167,6 +167,50 @@
 
       return $res;
     }
+
+    function getDatosUsuario($username){
+      $q = "SELECT username, email, pfp, tipo from usuarios where username = ?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$username]);
+
+      $res_query = $q_preparada->fetch();
+      if (!empty($res_query)){
+        $res = $res_query;
+      }
+
+      return $res;
+    }
+
+    function modificarUsuario($username, $datosUsuario){
+      $res = true;
+
+      $n_email = $datosUsuario['n_email'];
+      $n_username = $datosUsuario['n_username'];
+      if (!empty($datosUsuario['n_password'])){
+        $n_password_hash = password_hash($datosUsuario['n_password'], PASSWORD_DEFAULT);
+
+        $q = "UPDATE usuarios SET password=? where username=?";
+        $q_preparada = $this->pdo->prepare($q);
+
+        try {
+          $q_preparada->execute([$n_password_hash, $username]);
+        } catch (PDOException $e) {
+          $res = false;
+        }
+      }
+
+      if ($res === true){
+        $q = "UPDATE usuarios SET username=?, email=? where username=?";
+        $q_preparada = $this->pdo->prepare($q);
+        try {
+          $q_preparada->execute([$n_username, $n_email, $username]);
+        } catch (PDOException $e) {
+          $res = false;
+        }
+      } 
+      
+      return $res;
+    }
   }
 
   function procesarPeticion(){
