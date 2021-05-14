@@ -21,7 +21,13 @@
                 <a href="./index.php" class="btn">Eventos</a>
 
                 {% if usuario %}
-                <a href="./logout.php" class="btn">Logout</a>
+                <div class="dropdown">
+                    <a class="dropbtn btn">{{usuario}}</a>
+                    <div class="contenido-dropdown">
+                        <a class="opcion_menu" href="#">Perfil</a>
+                        <a class="opcion_menu" href="./logout.php">Logout</a>
+                    </div>
+                </div>
                 {% else %}
                 <a href="./identificacion.php" class="btn">Identifícate</a>
                 {% endif %}
