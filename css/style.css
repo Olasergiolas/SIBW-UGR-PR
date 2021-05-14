@@ -322,6 +322,27 @@ body {
 }
 
 
+.edit_comment_btn{
+    color: white;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    background-color: rgba(4, 99, 183, 1);
+    margin: 0;
+    padding: 10px;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+
+.comment_footer{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
 .modal_warning{
     display: none;
     justify-content: center;
