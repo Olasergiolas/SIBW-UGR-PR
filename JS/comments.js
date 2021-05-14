@@ -27,15 +27,15 @@ function comprobarCampos() {
     var campos = document.getElementsByClassName("campo");
     var mail = document.getElementById("fmail").value;
 
-    var i;
+    /*var i;
     for (i=0; i < campos.length && enviar; i++){
         if (campos[i].value.length == 0){
             raise_fill_gaps_error();
             enviar = false;
         }
-    }
+    }*/
     
-    if (enviar){
+    /*if (enviar){
         //const regex = new RegExp(".+@.+\\..+");
         //Regex obtenida del sourcecode de chromium
         regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -43,7 +43,7 @@ function comprobarCampos() {
             raise_wrong_mail_error();
             enviar = false;
         }
-    }
+    }*/
 
     if (enviar)
         addComentario();

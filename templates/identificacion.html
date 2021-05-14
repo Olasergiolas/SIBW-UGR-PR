@@ -37,7 +37,11 @@
     </form>
 
     {% if status == -1 %}
+    <p class="error">Email inválido.</p>
+
+    {% elseif status == -2 %}
     <p class="error">Nombre de usuario o email ya existente</p>
+
     {% endif %}
     
     <p id="footer_registro">¿Ya tienes cuenta? <a href="../identificacion.php" class="a_sobre_blanco">Inicia sesión.</a></p>

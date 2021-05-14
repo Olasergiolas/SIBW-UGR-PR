@@ -16,17 +16,17 @@
 
       session_start();
       $datosUsuario = array('username' => $username, 'password' => $password,
-      'mail' => $password);
+      'mail' => $mail);
       $respuesta = $BD->registrarUsuario($datosUsuario);
 
-      if ($respuesta === true){
+      if ($respuesta === 1){
         $_SESSION['username'] = $username;
         header("Location: index.php");
         exit();
       }
 
       else{
-        $status = -1;
+        $status = $respuesta;
       }
 
       

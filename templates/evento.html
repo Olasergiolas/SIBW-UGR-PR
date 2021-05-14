@@ -86,8 +86,8 @@
         <div id="redactar_comentario">
             <p id="titulo_form_comentario">Deja tu comentario!</p>
             <form id="form_comentario">
-                <div class="form_seccion"><label class="label_campo">Nombre:</label><br> <input type="text" id="fname" name="fname" class="campo"></div><br>
-                <div class="form_seccion"><label class="label_campo">Mail:</label><br> <input type="text" id="fmail" name="fmail" class="campo"></div><br>
+                <div class="form_seccion"><label class="label_campo">Nombre:</label><br> <input type="text" id="fname" name="fname" class="campo" value={{usuario}} readonly></div><br>
+                <div class="form_seccion"><label class="label_campo">Mail:</label><br> <input type="text" id="fmail" name="fmail" class="campo" value={{email}} readonly></div><br>
                 <div class="form_seccion"><label class="label_campo">Comentario:</label><br> <textarea oninput="censurar('{{palabras_censuradas|json_encode}}')" id="fcomment" name="fcomment" class="campo"></textarea></div><br>
                 <input type="button" value="Comentar" id="comentar_btn" onclick="comprobarCampos()">
             </form>

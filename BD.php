@@ -140,14 +140,23 @@
     }
 
     function registrarUsuario($datosUsuario){
-      $res = true;
-      $q = "insert into usuarios(username, password, email, tipo) values(?, ?, ?, 'registrado')";
-      $q_preparada = $this->pdo->prepare($q);
+      $res = 1;
 
-      try {
-        $q_preparada->execute([$datosUsuario['username'], password_hash($datosUsuario['password'], PASSWORD_DEFAULT), $datosUsuario['mail']]);
-      } catch (PDOException $e) {
-        $res = false;
+      if (!filter_var($datosUsuario['mail'], FILTER_VALIDATE_EMAIL)){
+        echo("MAIL ERRONEO");
+        $res = -1;
+      } 
+
+      if($res != -1){
+        $q = "insert into usuarios(username, password, email, tipo) values(?, ?, ?, 'registrado')";
+        $q_preparada = $this->pdo->prepare($q);
+  
+        try {
+          $q_preparada->execute([$datosUsuario['username'], password_hash($datosUsuario['password'], PASSWORD_DEFAULT), $datosUsuario['mail']]);
+        } catch (PDOException $e) {
+          echo("REPETIDO");
+          $res = -2;
+        }
       }
 
       return $res;
@@ -213,7 +222,7 @@
     }
   }
 
-  function procesarPeticion(){
+  function procesarPeticion($BD){
     if (isset($_GET['ev'])) {
       $idEv = $_GET['ev'];
     } else {
@@ -222,7 +231,7 @@
     
     $respuesta = array();
     if (is_numeric($idEv) == true){
-      $BD = new BD();
+      
       $evento = $BD->getEvento($idEv);
       $comentarios = $BD->getComentarios($evento['nombre_evento'],
         $evento['fecha_evento']);
@@ -240,9 +249,4 @@
 
     return $respuesta;
   }
-
-    /*$q = "SELECT usuario, fecha_hora, contenido FROM comentarios
-        WHERE nombre_evento = ? AND fecha_evento = ?";
-      $q_preparada = $this->pdo->prepare($q);
-      $q_preparada->execute([$nombre_evento, $fecha_evento]);*/
 ?>
