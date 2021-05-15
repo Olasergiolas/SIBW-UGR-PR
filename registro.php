@@ -21,6 +21,7 @@
 
       if ($respuesta === 1){
         $_SESSION['username'] = $username;
+        $_SESSION['tipo'] = 'registrado';
         header("Location: index.php");
         exit();
       }

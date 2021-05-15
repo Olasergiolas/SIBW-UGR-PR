@@ -145,7 +145,7 @@
       if (!filter_var($datosUsuario['mail'], FILTER_VALIDATE_EMAIL)){
         echo("MAIL ERRONEO");
         $res = -1;
-      } 
+      }
 
       if($res != -1){
         $q = "insert into usuarios(username, password, email, tipo) values(?, ?, ?, 'registrado')";
@@ -174,7 +174,21 @@
         $res = password_verify($datosUsuario['password'], $res_query['password']);
       }
 
+      if ($res){
+        $_SESSION['username'] = $datosUsuario['username'];
+        $_SESSION['tipo'] = $this->getTipoUsuario($datosUsuario['username']);
+      }
+
       return $res;
+    }
+
+    function getTipoUsuario($username){
+      $q = "SELECT tipo from usuarios where username = ?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$username]);
+      $res_query = $q_preparada->fetch();
+
+      return $res_query['tipo'];
     }
 
     function getDatosUsuario($username){
@@ -222,14 +236,17 @@
     }
 
     function addComentario($datosComentario){
-      $res = true;
       $q = "INSERT INTO comentarios(usuario, fecha_hora, contenido, nombre_evento, fecha_evento) VALUES(?, ?, ?, ?, ?)";
       $q_preparada = $this->pdo->prepare($q);
 
       $q_preparada->execute([$datosComentario['usuario'], $datosComentario['fecha_hora'], $datosComentario['contenido'],
       $datosComentario['nombre_evento'], $datosComentario['fecha_evento']]);
-      
-      return $res;
+    }
+
+    function eliminarComentario($idComentario){
+      $q = "DELETE FROM comentarios WHERE id=?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$idComentario]);
     }
   }
 
@@ -238,6 +255,13 @@
       $idEv = $_GET['ev'];
     } else {
       $idEv = -1;
+    }
+
+    if (isset($_GET['borrarc'])) {
+      if ($_SESSION['tipo'] === 'registrado'){
+        $idComentarioBorrar = $_GET['borrarc'];
+        $BD->eliminarComentario($idComentarioBorrar);
+      }
     }
     
     $respuesta = array();

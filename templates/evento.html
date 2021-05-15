@@ -84,7 +84,8 @@
                 
                 <div class="comment_footer">
                     <button id="edit{{comentario.id}}" class="comment_btn">Editar</button>
-                    <button id="delete{{comentario.id}}" class="comment_btn" onclick="removeComentario(this.id)">Borrar</button>
+                    <!--<button id="delete{{comentario.id}}" class="comment_btn" onclick="removeComentario(this.id)">Borrar</button>-->
+                    <a href="evento.php?ev=2&borrarc={{comentario.id}}" id="delete{{comentario.id}}" class="comment_btn">Borrar</a>
                 </div>
                 
                 

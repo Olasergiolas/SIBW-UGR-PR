@@ -26,7 +26,6 @@
       'fecha_evento' => $evento['fecha_evento']);
       $BD->addComentario($datosComentario);
       $id_evento = $evento['id_evento'];
-      //var_dump($evento['id_evento']);
       $url = "Location: evento.php?ev=$id_evento";
       header($url);
       exit();

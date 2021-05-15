@@ -17,7 +17,6 @@
       session_start();
       $res = $BD->login($datosUsuario);
       if ($res){
-        $_SESSION['username'] = $username;
         header("Location: index.php");
         exit();
       }
