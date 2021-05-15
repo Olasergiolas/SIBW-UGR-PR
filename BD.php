@@ -220,6 +220,17 @@
       
       return $res;
     }
+
+    function addComentario($datosComentario){
+      $res = true;
+      $q = "INSERT INTO comentarios(usuario, fecha_hora, contenido, nombre_evento, fecha_evento) VALUES(?, ?, ?, ?, ?)";
+      $q_preparada = $this->pdo->prepare($q);
+
+      $q_preparada->execute([$datosComentario['usuario'], $datosComentario['fecha_hora'], $datosComentario['contenido'],
+      $datosComentario['nombre_evento'], $datosComentario['fecha_evento']]);
+      
+      return $res;
+    }
   }
 
   function procesarPeticion($BD){
