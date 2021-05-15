@@ -90,3 +90,11 @@ function removeComentario(idbtn){
     var comentario = document.getElementById(id);
     comentario.style.display = 'none';
 }
+
+function mostrarFormularioEdicion(idComentario){
+    var formulario = document.getElementById("formulario_edicion_comentario" + idComentario);
+    var contenido = document.getElementById("contenido_comentario" + idComentario);
+
+    formulario.style.display = 'block';
+    contenido.style.display = 'none';
+}

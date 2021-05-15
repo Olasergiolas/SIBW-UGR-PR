@@ -19,12 +19,21 @@
     $datosUsuario = $BD->getDatosUsuario($_SESSION['username']);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-      $contenido_comentario = $_POST['fcomment'];
-      $mysqltime = date_create()->format('Y-m-d H:i:s');
-      $datosComentario = array('usuario' => $_SESSION['username'], 'fecha_hora' => $mysqltime,
-      'contenido' => $contenido_comentario, 'nombre_evento' => $evento['nombre_evento'],
-      'fecha_evento' => $evento['fecha_evento']);
-      $BD->addComentario($datosComentario);
+      if($_POST['fbtn'] === 'Editar'){
+        $idComentario = $_POST['fidComentario'];
+        $contenido = $_POST['fcontenido'];
+        $BD->editarComentario($idComentario, $contenido);
+      }
+
+      else{
+        $contenido_comentario = $_POST['fcomment'];
+        $mysqltime = date_create()->format('Y-m-d H:i:s');
+        $datosComentario = array('usuario' => $_SESSION['username'], 'fecha_hora' => $mysqltime,
+        'contenido' => $contenido_comentario, 'nombre_evento' => $evento['nombre_evento'],
+        'fecha_evento' => $evento['fecha_evento']);
+        $BD->addComentario($datosComentario);
+      }
+
       $id_evento = $evento['id_evento'];
       $url = "Location: evento.php?ev=$id_evento";
       header($url);

@@ -143,7 +143,6 @@
       $res = 1;
 
       if (!filter_var($datosUsuario['mail'], FILTER_VALIDATE_EMAIL)){
-        echo("MAIL ERRONEO");
         $res = -1;
       }
 
@@ -154,7 +153,6 @@
         try {
           $q_preparada->execute([$datosUsuario['username'], password_hash($datosUsuario['password'], PASSWORD_DEFAULT), $datosUsuario['mail']]);
         } catch (PDOException $e) {
-          echo("REPETIDO");
           $res = -2;
         }
       }
@@ -247,6 +245,12 @@
       $q = "DELETE FROM comentarios WHERE id=?";
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$idComentario]);
+    }
+
+    function editarComentario($idComentario, $contenido){
+      $q = "UPDATE comentarios SET contenido=? WHERE id=?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$contenido, $idComentario]);
     }
   }
 
