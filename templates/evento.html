@@ -68,7 +68,7 @@
         <a href="javascript:void(0)" id="comments_closebtn" onclick="closeComments()">&times;</a>
         <div id="bloque_comentarios">
             {% for comentario in comentarios %}
-            <div class="comentario">
+            <div id="comentario{{comentario.id}}" class="comentario">
                 <header class="titulo_comentario">
                     <img class="profile_picture" src="../img/avatar.png" alt="avatar">
                     <p class="username">{{comentario.usuario}}</p>
@@ -83,15 +83,17 @@
 
                 
                 <div class="comment_footer">
-                    <button class="edit_comment_btn">Editar</button>
-                    <button class="edit_comment_btn">Borrar</button>
+                    <button id="edit{{comentario.id}}" class="comment_btn">Editar</button>
+                    <button id="delete{{comentario.id}}" class="comment_btn" onclick="removeComentario(this.id)">Borrar</button>
                 </div>
                 
                 
             </div>
             {% endfor %}
         </div>
+        
         <div id="redactar_comentario">
+            {% if usuario %}
             <p id="titulo_form_comentario">Deja tu comentario!</p>
             <form id="form_comentario">
                 <div class="form_seccion"><label class="label_campo">Nombre:</label><br> <input type="text" id="fname" name="fname" class="campo" value={{usuario}} readonly></div><br>
@@ -99,6 +101,11 @@
                 <div class="form_seccion"><label class="label_campo">Comentario:</label><br> <textarea oninput="censurar('{{palabras_censuradas|json_encode}}')" id="fcomment" name="fcomment" class="campo"></textarea></div><br>
                 <input type="button" value="Comentar" id="comentar_btn" onclick="comprobarCampos()">
             </form>
+
+            {% else %}
+            <p><a href="../identificacion.php"><b>Inicia sesión para comentar</b></a></p>
+            {% endif %}
+            
         </div>
     </div>
 </div>

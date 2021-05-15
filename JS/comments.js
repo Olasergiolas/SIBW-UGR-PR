@@ -82,3 +82,11 @@ function addComentario(){
 
     document.getElementById("bloque_comentarios").appendChild(new_msg);
 }
+
+function removeComentario(idbtn){
+    let reg = /\d/;
+    var id = "comentario" + idbtn.match(reg)[0];
+    
+    var comentario = document.getElementById(id);
+    comentario.style.display = 'none';
+}

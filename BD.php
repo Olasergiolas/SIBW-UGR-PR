@@ -90,14 +90,14 @@
   
     //Obtener los comentarios de un evento
     function getComentarios($nombre_evento, $fecha_evento){
-      $q = "SELECT usuario, fecha_hora, contenido FROM comentarios
+      $q = "SELECT id, usuario, fecha_hora, contenido FROM comentarios
         WHERE nombre_evento = ? AND fecha_evento = ?";
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$nombre_evento, $fecha_evento]);
 
       $comentarios = array();
       while($res = $q_preparada->fetch()){
-        $comentario = array('usuario' => $res['usuario'], 'fecha_hora' => $res['fecha_hora'],
+        $comentario = array('id' => $res['id'] ,'usuario' => $res['usuario'], 'fecha_hora' => $res['fecha_hora'],
         'contenido' => $res['contenido']);
 
         array_push($comentarios, $comentario);
