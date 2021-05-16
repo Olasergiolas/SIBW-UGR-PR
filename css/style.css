@@ -269,6 +269,20 @@ body {
 }
 
 
+.comentarioListado{
+    width: 90%;
+    margin-top: 10px;
+    color: white;
+    background-color: #000000;
+}
+
+
+.info_evento_comentario{
+    margin-left: 10px;
+    line-height: 2px;
+}
+
+
 .profile_picture{
     width: 3.5em;
     margin-left: 5px;
@@ -341,6 +355,12 @@ body {
     width: 100%;
     display: flex;
     justify-content: flex-end;
+}
+
+
+.aviso_edicion{
+    font-size: 15px;
+    margin-left: 10px;
 }
 
 
@@ -671,6 +691,18 @@ a {
 
 #formulario_edicion{
     margin-bottom: 30px;
+}
+
+
+#listado_comentarios{
+    background-color: white;
+    width: 600px;
+    height: 800px;
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 

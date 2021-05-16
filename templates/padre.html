@@ -20,6 +20,8 @@
 
                 <a href="./index.php" class="btn">Eventos</a>
 
+                <a href="./listadoComentarios.php" class="btn">Comentarios</a>
+
                 {% if usuario %}
                 <div class="dropdown">
                     <a class="dropbtn btn">{{usuario}}</a>
@@ -43,7 +45,6 @@
 
             {% block panel_principal %}
             {% endblock %}
-
 
             {% block panel_lateral_derecho %}
             <div id="panel_lateral_derecho">

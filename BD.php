@@ -90,7 +90,7 @@
   
     //Obtener los comentarios de un evento
     function getComentarios($nombre_evento, $fecha_evento){
-      $q = "SELECT id, usuario, fecha_hora, contenido FROM comentarios
+      $q = "SELECT id, usuario, fecha_hora, contenido, editado FROM comentarios
         WHERE nombre_evento = ? AND fecha_evento = ?";
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$nombre_evento, $fecha_evento]);
@@ -98,9 +98,22 @@
       $comentarios = array();
       while($res = $q_preparada->fetch()){
         $comentario = array('id' => $res['id'] ,'usuario' => $res['usuario'], 'fecha_hora' => $res['fecha_hora'],
-        'contenido' => $res['contenido']);
+        'contenido' => $res['contenido'], 'editado' => $res['editado']);
 
         array_push($comentarios, $comentario);
+      }
+  
+      return $comentarios;
+    }
+
+    function getListadoCompletoComentarios(){
+      $q = "SELECT * FROM comentarios";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute();
+
+      $comentarios = array();
+      while($res = $q_preparada->fetch()){
+        array_push($comentarios, $res);
       }
   
       return $comentarios;
@@ -248,7 +261,7 @@
     }
 
     function editarComentario($idComentario, $contenido){
-      $q = "UPDATE comentarios SET contenido=? WHERE id=?";
+      $q = "UPDATE comentarios SET editado=true contenido=? WHERE id=?";
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$contenido, $idComentario]);
     }
@@ -262,7 +275,7 @@
     }
 
     if (isset($_GET['borrarc'])) {
-      if ($_SESSION['tipo'] === 'registrado'){
+      if ($_SESSION['tipo'] === 'moderador'){
         $idComentarioBorrar = $_GET['borrarc'];
         $BD->eliminarComentario($idComentarioBorrar);
       }

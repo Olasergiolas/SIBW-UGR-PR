@@ -1,0 +1,48 @@
+{% extends "padre.html" %}
+
+{% block comentarios %}
+<script src="../JS/comments.js" defer></script>
+{% endblock comentarios %}
+
+{% block panel_principal %}
+<div id="panel_principal" class="columna">
+    <div id="listado_comentarios">
+        {% for comentario in comentarios %}
+            <div id="comentario{{comentario.id}}" class="comentarioListado">
+                <div class="info_evento_comentario">
+                    <p>Evento: <b>{{comentario.nombre_evento}}</b></p>
+                    <p>Fecha evento: <b>{{comentario.fecha_evento}}</b></p>
+                </div>
+                
+                <header class="titulo_comentario">
+                    <img class="profile_picture" src="../img/avatar.png" alt="avatar">
+                    <p class="username">{{comentario.usuario}}</p>
+                    <div class="fecha_hora_comentario">
+                        <p class="fecha_comentario">{{comentario.fecha_hora}}</p>
+                    </div>
+                </header>
+
+                <div id="contenido_comentario{{comentario.id}}" class="contenido_comentario">
+                    <p class="parrafo_comentario">{{comentario.contenido}}</p>
+                </div>
+
+                <form class="formulario_edicion_comentario" id="formulario_edicion_comentario{{comentario.id}}" action="/listadoComentarios.php" method="POST">
+                    <input type="hidden" name="fidComentario" value="{{comentario.id}}">
+                    <input type="text" id="fcontenido" name="fcontenido" value="{{comentario.contenido}}" required><br><br>
+                    <input type="submit" value="Editar" name="fbtn">
+                </form>
+
+                {% if comentario.editado %}
+                <p class="aviso_edicion"><i>Comentario editado por un moderador</i></p>
+                {% endif %}
+                
+                <div class="comment_footer">
+                    <a id="edit{{comentario.id}}" class="comment_btn" onclick="mostrarFormularioEdicion('{{comentario.id}}')">Editar</a>
+                    <!--<button id="delete{{comentario.id}}" class="comment_btn" onclick="removeComentario(this.id)">Borrar</button>-->
+                    <a href="evento.php?ev={{evento.id_evento}}&borrarc={{comentario.id}}" id="delete{{comentario.id}}" class="comment_btn">Borrar</a>
+                </div>         
+            </div>
+            {% endfor %}
+    </div>
+</div>
+{% endblock panel_principal %}

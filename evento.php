@@ -45,5 +45,5 @@
 
   echo $twig->render('evento.html', ['evento' => $evento, 'comentarios' => $comentarios, 
     'palabras_censuradas' => $palabras_censuradas, 'usuario' => $_SESSION['username'],
-    'email' => $datosUsuario['email']]);
+    'email' => $datosUsuario['email'], 'tipo_usuario' => $_SESSION['tipo']]);
 ?>

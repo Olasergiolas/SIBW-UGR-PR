@@ -87,13 +87,17 @@
                     <input type="submit" value="Editar" name="fbtn">
                 </form>
 
+                {% if comentario.editado %}
+                <p class="aviso_edicion"><i>Comentario editado por un moderador</i></p>
+                {% endif %}
+                
+                {% if tipo_usuario == 'moderador' %}
                 <div class="comment_footer">
                     <a id="edit{{comentario.id}}" class="comment_btn" onclick="mostrarFormularioEdicion('{{comentario.id}}')">Editar</a>
                     <!--<button id="delete{{comentario.id}}" class="comment_btn" onclick="removeComentario(this.id)">Borrar</button>-->
                     <a href="evento.php?ev={{evento.id_evento}}&borrarc={{comentario.id}}" id="delete{{comentario.id}}" class="comment_btn">Borrar</a>
                 </div>
-                
-                
+                {% endif %}           
             </div>
             {% endfor %}
         </div>
