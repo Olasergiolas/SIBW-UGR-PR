@@ -12,6 +12,16 @@
             </div>
         </div>
         {% endfor %}
+
+        {% if tipo_usuario == 'gestor' %}
+        <div style="background-image: url(../img/addEvento.jpg);" class="evento">
+            <div class="info">
+                <a href="index.php">
+                    <p>Crear evento</p>
+                </a>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock panel_principal %}
