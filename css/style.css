@@ -695,9 +695,9 @@ a {
 
 
 #listado_comentarios{
+    padding-bottom: 10px;
     background-color: white;
     width: 600px;
-    height: 800px;
     align-self: center;
     justify-self: center;
     display: flex;

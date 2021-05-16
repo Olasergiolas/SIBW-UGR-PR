@@ -8,9 +8,11 @@
   session_start();
   if (isset($_SESSION['tipo'])){
     $tipo = $_SESSION['tipo'];
+    $usuario = $_SESSION['username'];
   }
   else{
     $tipo = 'anonimo';
+    $usuario = '';
   }
 
   $BD = new BD();
@@ -51,6 +53,6 @@
 
 
   echo $twig->render('evento.html', ['evento' => $evento, 'comentarios' => $comentarios, 
-    'palabras_censuradas' => $palabras_censuradas, 'usuario' => $_SESSION['username'],
-    'email' => $datosUsuario['email'], 'tipo_usuario' => $_SESSION['tipo']]);
+    'palabras_censuradas' => $palabras_censuradas, 'usuario' => $usuario,
+    'email' => $datosUsuario['email'], 'tipo_usuario' => $tipo]);
 ?>

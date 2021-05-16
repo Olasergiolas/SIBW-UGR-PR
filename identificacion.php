@@ -5,16 +5,24 @@
   $loader = new \Twig\Loader\FilesystemLoader('templates');
   $twig = new \Twig\Environment($loader);
 
+  session_start();
   $BD = new BD();
   $mode = 'login';
   $status = NULL;
+
+  if (isset($_SESSION['tipo'])){
+    $tipo = $_SESSION['tipo'];
+  }
+  else{
+    $tipo = 'anonimo';
+  }
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST'){
       $username = $_POST['fname'];
       $password = $_POST['fpass'];
       $datosUsuario = array('username' => $username, 'password' => $password);
 
-      session_start();
+      
       $res = $BD->login($datosUsuario);
       if ($res){
         header("Location: index.php");
@@ -25,5 +33,5 @@
       }
   }
 
-  echo $twig->render('identificacion.html', ['tipo_usuario' => $_SESSION['tipo'], 'mode' => $mode, 'status' => $status]);
+  echo $twig->render('identificacion.html', ['tipo_usuario' => $tipo, 'mode' => $mode, 'status' => $status]);
 ?>

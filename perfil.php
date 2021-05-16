@@ -10,9 +10,11 @@
 
   if (isset($_SESSION['tipo'])){
     $tipo = $_SESSION['tipo'];
+    $usuario = $_SESSION['username'];
   }
   else{
     $tipo = 'anonimo';
+    $usuario = '';
   }
 
   if (isset($_SESSION['username'])){
@@ -38,6 +40,6 @@
     }
   }
   
-  echo $twig->render('perfil.html', ['usuario' => $usuario['username'], 'tipo_usuario' => $_SESSION['tipo'], 'datos' => $usuario,
+  echo $twig->render('perfil.html', ['usuario' => $usuario['username'], 'tipo_usuario' => $tipo, 'datos' => $usuario,
    'status' => $status]);
 ?>

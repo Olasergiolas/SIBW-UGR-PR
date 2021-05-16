@@ -8,14 +8,16 @@
   session_start();
   if (isset($_SESSION['tipo'])){
     $tipo = $_SESSION['tipo'];
+    $usuario = $_SESSION['username'];
   }
   else{
     $tipo = 'anonimo';
+    $usuario = '';
   }
 
   $BD = new BD();
   $eventos = $BD->getEventosBriefing();
 
-  echo $twig->render('index.html', ['listaeventos' => $eventos, 'usuario' => $_SESSION['username'],
-  'tipo_usuario' => $_SESSION['tipo']]);
+  echo $twig->render('index.html', ['listaeventos' => $eventos, 'usuario' => $usuario,
+  'tipo_usuario' => $tipo]);
 ?>
