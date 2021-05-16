@@ -7,6 +7,11 @@
 {% block panel_principal %}
 <div id="panel_principal" class="columna">
     <div id="listado_comentarios">
+        <form id="barra_busqueda" action="/listadoComentarios.php" method="POST">
+            <label for="fusername">Usuario:</label>
+            <input type="text" id="fusername" name="fusername">
+            <input type="submit" value="Filtrar" name="fbtn">
+        </form>
         {% for comentario in comentarios %}
             <div id="comentario{{comentario.id}}" class="comentarioListado">
                 <div class="info_evento_comentario">

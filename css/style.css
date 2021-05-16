@@ -706,6 +706,12 @@ a {
 }
 
 
+#barra_busqueda{
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+
 @media (max-width: 800px) {                  
     #logo {
        width: 1.8em;

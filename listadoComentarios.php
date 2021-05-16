@@ -12,7 +12,6 @@
   }
   
   $BD = new BD();
-  $listadoComentarios = $BD->getListadoCompletoComentarios();
 
   if (isset($_GET['borrarc'])) {
     $idComentarioBorrar = $_GET['borrarc'];
@@ -29,7 +28,18 @@
         header("Location: listadoComentarios.php");
         exit();
     }
+
+    else if ($_POST['fbtn'] === 'Filtrar'){
+      $usuario_filtrado = $_POST['fusername'];
+    }
   }
 
-  echo $twig->render('listadoComentarios.html', ['comentarios' => $listadoComentarios]);
+  if(isset($usuario_filtrado)){
+    $listadoComentarios = $BD->getListadoCompletoComentarios($usuario_filtrado);
+  }
+  else{
+    $listadoComentarios = $BD->getListadoCompletoComentarios();
+  }
+
+  echo $twig->render('listadoComentarios.html', ['usuario' => $_SESSION['username'], 'comentarios' => $listadoComentarios]);
 ?>

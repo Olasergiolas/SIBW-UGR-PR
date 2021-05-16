@@ -106,10 +106,18 @@
       return $comentarios;
     }
 
-    function getListadoCompletoComentarios(){
-      $q = "SELECT * FROM comentarios";
-      $q_preparada = $this->pdo->prepare($q);
-      $q_preparada->execute();
+    function getListadoCompletoComentarios($username=''){
+      if ($username === ''){
+        $q = "SELECT * FROM comentarios";
+        $q_preparada = $this->pdo->prepare($q);
+        $q_preparada->execute();
+      }
+
+      else{
+        $q = "SELECT * FROM comentarios WHERE usuario=?";
+        $q_preparada = $this->pdo->prepare($q);
+        $q_preparada->execute([$username]);
+      }    
 
       $comentarios = array();
       while($res = $q_preparada->fetch()){
