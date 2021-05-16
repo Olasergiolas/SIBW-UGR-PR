@@ -41,5 +41,6 @@
     $listadoComentarios = $BD->getListadoCompletoComentarios();
   }
 
-  echo $twig->render('listadoComentarios.html', ['usuario' => $_SESSION['username'], 'comentarios' => $listadoComentarios]);
+  echo $twig->render('listadoComentarios.html', ['usuario' => $_SESSION['username'], 'tipo_usuario' => $_SESSION['tipo'],
+  'comentarios' => $listadoComentarios]);
 ?>

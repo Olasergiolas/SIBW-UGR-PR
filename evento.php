@@ -6,6 +6,13 @@
   $twig = new \Twig\Environment($loader);
 
   session_start();
+  if (isset($_SESSION['tipo'])){
+    $tipo = $_SESSION['tipo'];
+  }
+  else{
+    $tipo = 'anonimo';
+  }
+
   $BD = new BD();
 
   $respuesta = procesarPeticion($BD);

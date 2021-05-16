@@ -20,7 +20,9 @@
 
                 <a href="./index.php" class="btn">Eventos</a>
 
+                {% if tipo_usuario == 'moderador' %}
                 <a href="./listadoComentarios.php" class="btn">Comentarios</a>
+                {% endif %}
 
                 {% if usuario %}
                 <div class="dropdown">

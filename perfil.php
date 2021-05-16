@@ -8,6 +8,13 @@
   session_start();
   $BD = new BD();
 
+  if (isset($_SESSION['tipo'])){
+    $tipo = $_SESSION['tipo'];
+  }
+  else{
+    $tipo = 'anonimo';
+  }
+
   if (isset($_SESSION['username'])){
     $usuario = $BD->getDatosUsuario($_SESSION['username']);
 
@@ -28,9 +35,9 @@
         else {
           $status = 'error';
         }
-        
     }
   }
   
-  echo $twig->render('perfil.html', ['usuario' => $usuario['username'], 'datos' => $usuario, 'status' => $status]);
+  echo $twig->render('perfil.html', ['usuario' => $usuario['username'], 'tipo_usuario' => $_SESSION['tipo'], 'datos' => $usuario,
+   'status' => $status]);
 ?>

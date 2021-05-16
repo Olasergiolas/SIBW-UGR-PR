@@ -9,6 +9,13 @@
   $status = NULL;
   $mode = 'registro';
 
+  /*if (isset($_SESSION['tipo'])){
+    $tipo = $_SESSION['tipo'];
+  }
+  else{
+    $tipo = 'anonimo';
+  }*/
+
   if ($_SERVER['REQUEST_METHOD'] === 'POST'){
       $mail = $_POST['fmail'];
       $username = $_POST['fname'];
@@ -29,9 +36,7 @@
       else{
         $status = $respuesta;
       }
-
-      
   }
 
-  echo $twig->render('identificacion.html', ['mode' => $mode, 'status' => $status]);
+  echo $twig->render('identificacion.html', ['mode' => $mode, 'status' => $status, 'tipo_usuario' => $_SESSION['tipo']]);
 ?>

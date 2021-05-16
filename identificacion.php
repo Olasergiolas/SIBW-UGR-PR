@@ -25,5 +25,5 @@
       }
   }
 
-  echo $twig->render('identificacion.html', ['mode' => $mode, 'status' => $status]);
+  echo $twig->render('identificacion.html', ['tipo_usuario' => $_SESSION['tipo'], 'mode' => $mode, 'status' => $status]);
 ?>
