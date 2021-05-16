@@ -261,7 +261,7 @@
     }
 
     function editarComentario($idComentario, $contenido){
-      $q = "UPDATE comentarios SET editado=true contenido=? WHERE id=?";
+      $q = "UPDATE comentarios SET editado=true, contenido=? WHERE id=?";
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$contenido, $idComentario]);
     }

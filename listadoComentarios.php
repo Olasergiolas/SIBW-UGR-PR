@@ -14,9 +14,16 @@
   $BD = new BD();
   $listadoComentarios = $BD->getListadoCompletoComentarios();
 
+  if (isset($_GET['borrarc'])) {
+    $idComentarioBorrar = $_GET['borrarc'];
+    $BD->eliminarComentario($idComentarioBorrar);
+    header("Location: listadoComentarios.php");
+    exit();
+  }
+
   if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     if($_POST['fbtn'] === 'Editar'){
-        $idComentario = $_GET['idComentario'];
+        $idComentario = $_POST['fidComentario'];
         $contenido = $_POST['fcontenido'];
         $BD->editarComentario($idComentario, $contenido);
         header("Location: listadoComentarios.php");
