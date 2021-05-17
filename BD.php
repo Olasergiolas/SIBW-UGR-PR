@@ -80,7 +80,7 @@
     function conectarBD() {
       $pdo = NULL;
       try {
-        $pdo = new PDO("mysql:host=localhost;dbname=SIBW", 'sergiogarcia', 'QVeApauxsYj3XcktpdnO');
+        $pdo = new PDO("mysql:host=127.0.0.1;dbname=SIBW", 'sergiogarcia', 'QVeApauxsYj3XcktpdnO');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       } catch(PDOException $e) {
         echo "Conexión fallida: " . $e->getMessage();

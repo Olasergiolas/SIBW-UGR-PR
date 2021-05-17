@@ -13,6 +13,7 @@
   else{
     $tipo = 'anonimo';
     $usuario = '';
+    $mail = '';
   }
 
   $BD = new BD();
@@ -25,7 +26,7 @@
   }
 
   if (isset($_SESSION['username'])){
-    $datosUsuario = $BD->getDatosUsuario($_SESSION['username']);
+    $mail = ($BD->getDatosUsuario($_SESSION['username'])['email']);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
       if($_POST['fbtn'] === 'Editar'){
@@ -54,5 +55,5 @@
 
   echo $twig->render('evento.html', ['evento' => $evento, 'comentarios' => $comentarios, 
     'palabras_censuradas' => $palabras_censuradas, 'usuario' => $usuario,
-    'email' => $datosUsuario['email'], 'tipo_usuario' => $tipo]);
+    'email' => $mail, 'tipo_usuario' => $tipo]);
 ?>
