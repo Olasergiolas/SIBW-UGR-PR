@@ -5,7 +5,10 @@
     <div class="fila_eventos">
         {% for evento in listaeventos %}
         <div style="background-image: url(../img/{{evento.icono}});" class="evento">
-            <a href="/borrarEvento.php?ev={{evento.id}}" class="eliminar_evento">Eliminar</a>
+            {% if tipo_usuario == 'gestor' %}
+            <a href="#" class="modificar_evento">Editar</a>
+            <a href="/borrarEvento.php?ev={{evento.id}}" class="modificar_evento">Eliminar</a>
+            {% endif %}
             <div class="info">
                 <a href="evento.php?ev={{evento.id}}">
                     <p>{{evento.nombre_evento}}</p>

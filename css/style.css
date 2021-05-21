@@ -461,7 +461,7 @@ body {
 }
 
 
-.evento:hover .eliminar_evento{
+.evento:hover .modificar_evento{
     display: block;
     animation: fadein 0.5s;
 }
@@ -728,7 +728,8 @@ a {
 }
 
 
-.eliminar_evento{
+.modificar_evento{
+    width: 100px;
     padding: 5px;
     display: none;
     align-self: flex-end;
