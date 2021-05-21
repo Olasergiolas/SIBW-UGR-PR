@@ -273,6 +273,22 @@
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$contenido, $idComentario]);
     }
+
+    function addEvento($datosEvento, $imagenes){
+      $q = "INSERT INTO eventos(nombre_evento, fecha, organizador, descripcion, url, icono)
+        VALUES (?, ?, ?, ?, ?, ?)";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$datosEvento['nombre'], $datosEvento['fecha'], $datosEvento['organizador'],
+      $datosEvento['descripcion'], $datosEvento['url'], $datosEvento['icono']]);
+
+
+      foreach ($imagenes as $imagen) {
+        $q = "INSERT INTO imagenes VALUES(?, ?, ?, ?)";
+        $q_preparada = $this->pdo->prepare($q);
+        $q_preparada->execute([$imagen['nombre_imagen'], $datosEvento['nombre'], $datosEvento['fecha'],
+          $imagen['copyright']]);
+      }
+    }
   }
 
   function procesarPeticion($BD){

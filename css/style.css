@@ -540,6 +540,20 @@ h2 {
 }
 
 
+#contenedor_formulario_evento{
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+    padding: 15px;
+}
+
+
+#formulario_creacion_evento{
+    margin: 10px;
+}
+
+
 .event_link {
     color:#0075d4;
 }

@@ -1,0 +1,28 @@
+{% extends "evento.html" %}
+
+{% block comentarios %}
+{% endblock comentarios %}
+
+{% block panel_principal %}
+<div id="panel_principal" class="columna">
+    <div id="contenedor_formulario_evento">
+        <form id="formulario_creacion_evento">
+            <label for="ffecha">Fecha:</label><br>
+            <input type="text" id="ffecha" name="ffecha" required><br><br>
+            <label for="ftitle">Título:</label><br>
+            <input type="text" id="ftitle" name="ftitle" required><br><br>
+            <label for="forganizador">Organizador:</label><br>
+            <input type="text" id="forganizador" name="forganizador" required><br><br>
+            <label for="files">Añadir imágenes:</label><br>
+            <input type="file" id="files" name="files" multiple>    
+        </form>
+        
+        <textarea rows="30" cols="60" name="cuerpo" form="formulario_creacion_evento"></textarea>
+        <input type="submit" value="Guardar evento" name="fbtn">
+    </div>
+</div>
+{% endblock panel_principal %}
+
+{% block panel_lateral_derecho %}
+<div id="panel_lateral_derecho"></div>
+{% endblock panel_lateral_derecho %}
