@@ -11,34 +11,26 @@
     die('No tienes acceso a esta sección');
   }
 
-
-  function procesarImagen($tipo){
+  function procesarImagen($datosImagen){
     $filename_res = '';
     $errors = array();
-    $file_name = $_FILES[$tipo]['name'];
-    $file_size = $_FILES[$tipo]['size'];
-    $file_tmp = $_FILES[$tipo]['tmp_name'];
-    $file_type = $_FILES[$tipo]['type'];
-    $file_ext = strtolower(end(explode('.',$_FILES['fminiatura']['name'])));
 
     $extensions= array("jpeg","jpg","png");
-    if (in_array($file_ext,$extensions) === false){
+    if (in_array($datosImagen['file_ext'],$extensions) === false){
       $errors[] = "Extensión no permitida, elige una imagen JPEG o PNG.";
     }
 
-    if ($file_size > 2097152){
+    if ($datosImagen['file_size'] > 2097152){
       $errors[] = 'Tamaño del fichero demasiado grande';
     }
 
     if (empty($errors)==true) {
-      $filename_res = $file_name;
-      move_uploaded_file($file_tmp, "img/" . $file_name);
+      $filename_res = $datosImagen['file_name'];
+      move_uploaded_file($datosImagen['file_tmp'], "img/" . $datosImagen['file_name']);
     }
 
     return $filename_res;
   }
-
-
 
   $BD = new BD();
   if ($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -48,27 +40,42 @@
     $cuerpo = $_POST['cuerpo'];
     $url = $_POST['fwebsite'];
     
-
-
-
-    //$imagenes = $_POST['fimagenes'];
     if(isset($_FILES['fminiatura'])){
-      $path_miniatura = procesarImagen('fminiatura');
+      $imagen = $_FILES['fminiatura'];
+      $file_name = $imagen['name'];
+      $file_size = $imagen['size'];
+      $file_tmp = $imagen['tmp_name'];
+      $file_type = $imagen['type'];
+      $file_ext = strtolower(end(explode('.',$imagen['name'])));
+      $datosMiniatura = array('file_name' => $file_name, 'file_size' => $file_size, 'file_tmp' => $file_tmp,
+        'file_type' => $file_type, 'file_ext' => $file_ext);
+
+      $path_miniatura = procesarImagen($datosMiniatura);
     }
 
-    /*if(isset($_FILES['fimagenes'])){
-      $path_miniatura = procesarImagen('fminiatura');
-    }*/
+    if(isset($_FILES['fimagenes'])){
+      $imgs = array();
+      $total = count($_FILES['fimagenes']['name']);
+      for ($i = 0; $i < $total; $i++){
+        $imagen = $_FILES['fimagenes'];
+        $file_name = $imagen['name'][$i];
+        $file_size = $imagen['size'][$i];
+        $file_tmp = $imagen['tmp_name'][$i];
+        $file_type = $imagen['type'][$i];
+        $file_ext = strtolower(end(explode('.',$imagen['name'][$i])));
+        $datosImg = array('file_name' => $file_name, 'file_size' => $file_size, 'file_tmp' => $file_tmp,
+          'file_type' => $file_type, 'file_ext' => $file_ext);
 
-
-
-
-
+        $res = procesarImagen($datosImg);
+        $img_copyright = array('nombre_imagen' => $res, 'copyright' => $organizador);
+        array_push($imgs, $img_copyright);
+      }
+    }
 
     $datosEvento = array('fecha' => $fecha, 'nombre' => $titulo, 'organizador' => $organizador,
       'descripcion' => $cuerpo, 'url' => $url, 'miniatura' => $path_miniatura);
 
-    $BD->addEvento($datosEvento);
+    $BD->addEvento($datosEvento, $imgs);
   }
 
   echo $twig->render('crearEvento.html', ['usuario' => $_SESSION['username']]);
