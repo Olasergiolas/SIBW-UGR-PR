@@ -6,7 +6,7 @@
 {% block panel_principal %}
 <div id="panel_principal" class="columna">
     <div id="contenedor_formulario_evento">
-        <form id="formulario_creacion_evento" action="/crearEvento.php" method="POST">
+        <form id="formulario_creacion_evento" action="/crearEvento.php" method="POST" enctype="multipart/form-data">
             <label for="ffecha">Fecha:</label><br>
             <input type="text" id="ffecha" name="ffecha" required><br><br>
             <label for="ftitle">Título:</label><br>

@@ -15,6 +15,8 @@
   if (isset($_GET['ev'])) {
     $idEv = $_GET['ev'];
     $BD->borrarEvento($idEv);
+    header("Location: index.php");
+    exit();
   }
 
   echo $twig->render('index.html', ['usuario' => $_SESSION['username']]);

@@ -279,7 +279,7 @@
         VALUES (?, ?, ?, ?, ?, ?)";
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$datosEvento['nombre'], $datosEvento['fecha'], $datosEvento['organizador'],
-      $datosEvento['descripcion'], $datosEvento['url'], $datosEvento['icono']]);
+      $datosEvento['descripcion'], $datosEvento['url'], $datosEvento['miniatura']]);
 
 
       /*foreach ($imagenes as $imagen) {
