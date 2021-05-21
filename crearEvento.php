@@ -12,6 +12,20 @@
   }
 
   $BD = new BD();
+  if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $fecha = $_POST['ffecha'];
+    $titulo = $_POST['ftitle'];
+    $organizador = $_POST['forganizador'];
+    $cuerpo = $_POST['cuerpo'];
+    $url = $_POST['fwebsite'];
+    $miniatura = $_POST['fminiatura'];
+    $imagenes = $_POST['fimagenes'];
+
+    $datosEvento = array('fecha' => $fecha, 'nombre' => $titulo, 'organizador' => $organizador,
+      'descripcion' => $cuerpo, 'url' => $url);
+
+    $BD->addEvento($datosEvento);
+  }
 
   echo $twig->render('crearEvento.html', ['usuario' => $_SESSION['username']]);
 ?>

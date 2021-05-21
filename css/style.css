@@ -442,20 +442,16 @@ body {
     background-image: url("../img/default_event.jpg");
     background-size:cover;
     background-position: center;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    overflow: hidden;
-    display:flex;
-    box-shadow: 0 2px 1px rgba(0,0,0,0.09), 
+    margin: 20px;
+    box-shadow: 0 2px 1px rgba(0,0,0,0.09),
     0 4px 2px rgba(0,0,0,0.09), 
     0 8px 4px rgba(0,0,0,0.09), 
     0 16px 8px rgba(0,0,0,0.09),
     0 32px 16px rgba(0,0,0,0.09);
     text-align: center;
-    align-items: flex-end;
-    flex-basis: 23%;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 
@@ -723,6 +719,13 @@ a {
 #barra_busqueda{
     margin-top: 10px;
     margin-bottom: 30px;
+}
+
+
+.eliminar_evento{
+    align-self: flex-end;
+    justify-self: flex-start;
+    background-color: red;
 }
 
 
