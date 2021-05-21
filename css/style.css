@@ -461,6 +461,12 @@ body {
 }
 
 
+.evento:hover .eliminar_evento{
+    display: block;
+    animation: fadein 0.5s;
+}
+
+
 .info {
     background-color: rgba(196, 0, 0, 0.705);
     color: white;
@@ -723,9 +729,11 @@ a {
 
 
 .eliminar_evento{
+    padding: 5px;
+    display: none;
     align-self: flex-end;
     justify-self: flex-start;
-    background-color: red;
+    background-color: rgba(39, 39, 39, 0.801)
 }
 
 

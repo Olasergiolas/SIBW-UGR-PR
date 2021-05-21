@@ -289,6 +289,12 @@
           $imagen['copyright']]);
       }*/
     }
+
+    function borrarEvento($idEv){
+      $q = "DELETE FROM eventos WHERE id=?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$idEv]);
+    }
   }
 
   function procesarPeticion($BD){
