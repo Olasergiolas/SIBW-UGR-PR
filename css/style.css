@@ -541,7 +541,7 @@ h2 {
 }
 
 
-#formulario_creacion_evento{
+.formulario_evento{
     margin: 10px;
 }
 
@@ -745,7 +745,7 @@ a {
 }
 
 
-@media (max-width: 800px) {                  
+@media (max-width: 865px) {                  
     #logo {
        width: 1.8em;
     }
@@ -757,7 +757,7 @@ a {
 
 
     .event_picture_container {
-        display: none;
+        margin:auto;
     }
 
     #galeria {
@@ -767,5 +767,9 @@ a {
 
     .event_body {
         margin-right: 50px;
+    }
+
+    .cuerpo_articulo{
+        flex: 0 0 100%;
     }
  }

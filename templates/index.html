@@ -6,7 +6,7 @@
         {% for evento in listaeventos %}
         <div style="background-image: url(../img/{{evento.icono}});" class="evento">
             {% if tipo_usuario == 'gestor' %}
-            <a href="#" class="modificar_evento">Editar</a>
+            <a href="/editarEvento.php?ev={{evento.id}}" class="modificar_evento">Editar</a>
             <a href="/borrarEvento.php?ev={{evento.id}}" class="modificar_evento">Eliminar</a>
             {% endif %}
             <div class="info">

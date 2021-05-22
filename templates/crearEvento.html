@@ -10,7 +10,8 @@
         <h3 id="error_add_evento" class="error">Error al añadir el evento.</h3>
         {% endif %}
         
-        <form id="formulario_creacion_evento" action="/crearEvento.php" method="POST" enctype="multipart/form-data">
+        {% block formulario_evento %}
+        <form id="formulario_creacion_evento" class="formulario_evento" action="/crearEvento.php" method="POST" enctype="multipart/form-data">
             <label for="ffecha">Fecha:</label><br>
             <input type="date" id="ffecha" name="ffecha" required><br><br>
             <label for="ftitle">Título:</label><br>
@@ -25,8 +26,10 @@
             <input type="file" id="fminiatura" name="fminiatura">
         </form>
         
+        
         <textarea rows="30" cols="60" name="cuerpo" form="formulario_creacion_evento" required></textarea>
         <input type="submit" value="Guardar evento" name="fbtn", form="formulario_creacion_evento">
+        {% endblock formulario_evento %}
     </div>
 </div>
 {% endblock panel_principal %}

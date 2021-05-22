@@ -1,0 +1,21 @@
+{% extends "crearEvento.html" %}
+
+{% block formulario_evento %}
+<form id="formulario_edicion_evento" class="formulario_evento" action="/editarEvento.php?ev={{evento.id_evento}}" method="POST" enctype="multipart/form-data">
+    <label for="ffecha">Fecha:</label><br>
+    <input type="date" id="ffecha" name="ffecha" value="{{evento.fecha_evento}}" required><br><br>
+    <label for="ftitle">Título:</label><br>
+    <input type="text" id="ftitle" name="ftitle" value="{{evento.nombre_evento}}" required><br><br>
+    <label for="forganizador">Organizador:</label><br>
+    <input type="text" id="forganizador" name="forganizador" value="{{evento.organizador}}" required><br><br>
+    <label for="fwebsite">Website:</label><br>
+    <input type="text" id="fwebsite" name="fwebsite" value="{{evento.url}}"><br><br>
+    <label for="fimagenes[]">Añadir imágenes:</label><br>
+    <input type="file" id="fimagenes" name="fimagenes[]" multiple><br><br>
+    <label for="fminiatura">Añadir miniatura:</label><br>
+    <input type="file" id="fminiatura" name="fminiatura">
+</form>
+
+<textarea rows="30" cols="60" name="cuerpo" form="formulario_creacion_evento" required>{{evento.descripcion}}</textarea>
+<input type="submit" value="Guardar evento" name="fbtn", form="formulario_creacion_evento">
+{% endblock formulario_evento %}
