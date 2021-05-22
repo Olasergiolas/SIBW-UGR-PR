@@ -308,7 +308,18 @@
       } catch (PDOException $e) {
         echo 'Evento inexistente: ' . $e->getMessage();
       }
-      
+    }
+
+    function editarEvento($datosEvento){
+      $res = 1;
+      $q = "UPDATE eventos SET nombre_evento=?, fecha=?, organizador=?, descripcion=?, url=? WHERE id=?";
+      $q_preparada = $this->pdo->prepare($q);
+      //try {
+        $q_preparada->execute([$datosEvento['nombre_evento'], $datosEvento['fecha_evento'], $datosEvento['organizador'],
+          $datosEvento['descripcion'], $datosEvento['url'], $datosEvento['id_evento']]);
+      /*} catch (PDOException $e) {
+        echo 'Evento inexistente: ' . $e->getMessage();
+      }*/
     }
   }
 

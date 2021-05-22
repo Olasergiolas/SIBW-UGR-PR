@@ -16,6 +16,21 @@
   if (isset($_GET['ev'])) {
     $idEv = $_GET['ev'];
     $infoEvento = $BD->getEvento($idEv);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $fecha = $_POST['ffecha'];
+        $titulo = $_POST['ftitle'];
+        $organizador = $_POST['forganizador'];
+        $cuerpo = $_POST['cuerpo'];
+        $url = $_POST['fwebsite'];
+        $nuevaInfoEvento = array('nombre_evento' => $titulo, 'fecha_evento' => $fecha,
+            'organizador' => $organizador, 'descripcion' => $cuerpo, 'url' => $url,
+            'id_evento' => $idEv);
+        
+        $BD->editarEvento($nuevaInfoEvento);
+        header("Location: editarEvento.php?ev=$idEv");
+        exit();
+    }
   }
 
   echo $twig->render('editarEvento.html', ['usuario' => $_SESSION['username'], 'evento' => $infoEvento ,'status' => $status]);
