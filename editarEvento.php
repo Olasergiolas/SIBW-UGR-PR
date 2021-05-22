@@ -1,6 +1,7 @@
 <?php
   require_once "./vendor/autoload.php";
   include("BD.php");
+  include("procesarImagen.php");
 
   $loader = new \Twig\Loader\FilesystemLoader('templates');
   $twig = new \Twig\Environment($loader);
@@ -28,6 +29,22 @@
             'id_evento' => $idEv);
         
         $status = $BD->editarEvento($nuevaInfoEvento);
+
+        if(isset($_FILES['fminiatura'])){
+            $path_miniatura = obtenerImagen();
+
+            if(!empty($path_miniatura))
+                $BD->editarMiniaturaEvento($idEv, $path_miniatura);
+        }
+
+        if(isset($_FILES['fimagenes'])){
+            $imgs = obtenerImagenes();
+
+            foreach ($imgs as $imagen) {
+                if (!empty($imagen['nombre_imagen']))
+                    $BD->addFotografiaEvento($nuevaInfoEvento, $imagen);
+            }
+        }
 
         if ($status === 1){
             header("Location: editarEvento.php?ev=$idEv");

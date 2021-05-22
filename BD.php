@@ -323,6 +323,19 @@
 
       return $res;
     }
+
+    function editarMiniaturaEvento($idEv, $nombreMiniatura){
+      $q = "UPDATE eventos SET icono=? WHERE id=?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$nombreMiniatura, $idEv]);
+    }
+
+    function addFotografiaEvento($datosEvento, $imagen){
+      $q = "INSERT INTO imagenes VALUES(?, ?, ?, ?)";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$imagen['nombre_imagen'], $datosEvento['nombre_evento'], $datosEvento['fecha_evento'],
+        $imagen['copyright']]);
+    }
   }
 
   function procesarPeticion($BD){
