@@ -275,25 +275,40 @@
     }
 
     function addEvento($datosEvento, $imagenes){
+      $res = true;
+
       $q = "INSERT INTO eventos(nombre_evento, fecha, organizador, descripcion, url, icono)
         VALUES (?, ?, ?, ?, ?, ?)";
       $q_preparada = $this->pdo->prepare($q);
-      $q_preparada->execute([$datosEvento['nombre'], $datosEvento['fecha'], $datosEvento['organizador'],
-      $datosEvento['descripcion'], $datosEvento['url'], $datosEvento['miniatura']]);
 
-
-      foreach ($imagenes as $imagen) {
-        $q = "INSERT INTO imagenes VALUES(?, ?, ?, ?)";
-        $q_preparada = $this->pdo->prepare($q);
-        $q_preparada->execute([$imagen['nombre_imagen'], $datosEvento['nombre'], $datosEvento['fecha'],
-          $imagen['copyright']]);
+      try {
+        $q_preparada->execute([$datosEvento['nombre'], $datosEvento['fecha'], $datosEvento['organizador'],
+          $datosEvento['descripcion'], $datosEvento['url'], $datosEvento['miniatura']]);
+      } catch (PDOException $e) {
+        $res = false;
       }
+      
+      if ($res){
+        foreach ($imagenes as $imagen) {
+          $q = "INSERT INTO imagenes VALUES(?, ?, ?, ?)";
+          $q_preparada = $this->pdo->prepare($q);
+          $q_preparada->execute([$imagen['nombre_imagen'], $datosEvento['nombre'], $datosEvento['fecha'],
+            $imagen['copyright']]);
+        }
+      }
+
+      return $res;
     }
 
     function borrarEvento($idEv){
       $q = "DELETE FROM eventos WHERE id=?";
       $q_preparada = $this->pdo->prepare($q);
-      $q_preparada->execute([$idEv]);
+      try {
+        $q_preparada->execute([$idEv]);
+      } catch (PDOException $e) {
+        echo 'Evento inexistente: ' . $e->getMessage();
+      }
+      
     }
   }
 

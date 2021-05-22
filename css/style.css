@@ -559,10 +559,11 @@ h2 {
 
 
 .event_picture_container {
+    margin-top: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex: 0 0 50%;
+    flex: 0 0 75%;
 }
 
 
@@ -576,7 +577,7 @@ h2 {
 
 
 .cuerpo_articulo{
-    flex: 0 0 50%;
+    flex: 0 0 25%;
 }
 
 
@@ -687,6 +688,11 @@ a {
 .error{
     font-weight: bold;
     color: red;
+}
+
+
+#error_add_evento{
+    margin-left: 10px;
 }
 
 

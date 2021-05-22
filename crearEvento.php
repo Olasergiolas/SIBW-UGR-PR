@@ -6,6 +6,7 @@
   $twig = new \Twig\Environment($loader);
 
   session_start();
+  $status = 1;
   if ($_SESSION['tipo'] != 'gestor'){
     http_response_code(403);
     die('No tienes acceso a esta sección');
@@ -75,8 +76,17 @@
     $datosEvento = array('fecha' => $fecha, 'nombre' => $titulo, 'organizador' => $organizador,
       'descripcion' => $cuerpo, 'url' => $url, 'miniatura' => $path_miniatura);
 
-    $BD->addEvento($datosEvento, $imgs);
+    $res = $BD->addEvento($datosEvento, $imgs);
+
+    if ($res){
+      header("Location: index.php");
+      exit();
+    }
+
+    else{
+      $status = -1;
+    }
   }
 
-  echo $twig->render('crearEvento.html', ['usuario' => $_SESSION['username']]);
+  echo $twig->render('crearEvento.html', ['usuario' => $_SESSION['username'], 'status' => $status]);
 ?>
