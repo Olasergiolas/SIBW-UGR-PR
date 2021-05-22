@@ -17,6 +17,7 @@
   if (isset($_GET['ev'])) {
     $idEv = $_GET['ev'];
     $infoEvento = $BD->getEvento($idEv);
+    $infoEvento['descripcion'] = strip_tags($infoEvento['descripcion']);
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $fecha = $_POST['ffecha'];
