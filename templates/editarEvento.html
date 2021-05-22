@@ -1,5 +1,9 @@
 {% extends "crearEvento.html" %}
 
+{% block error_evento %}
+<h3 id="error_add_evento" class="error">Error al modificar el evento: Evento ya existente.</h3>
+{% endblock error_evento %}
+
 {% block formulario_evento %}
 <form id="formulario_edicion_evento" class="formulario_evento" action="/editarEvento.php?ev={{evento.id_evento}}" method="POST" enctype="multipart/form-data">
     <label for="ffecha">Fecha:</label><br>

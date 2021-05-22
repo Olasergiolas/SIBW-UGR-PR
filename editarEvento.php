@@ -27,9 +27,12 @@
             'organizador' => $organizador, 'descripcion' => $cuerpo, 'url' => $url,
             'id_evento' => $idEv);
         
-        $BD->editarEvento($nuevaInfoEvento);
-        header("Location: editarEvento.php?ev=$idEv");
-        exit();
+        $status = $BD->editarEvento($nuevaInfoEvento);
+
+        if ($status === 1){
+            header("Location: editarEvento.php?ev=$idEv");
+            exit();
+        }        
     }
   }
 

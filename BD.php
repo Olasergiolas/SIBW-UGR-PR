@@ -314,12 +314,14 @@
       $res = 1;
       $q = "UPDATE eventos SET nombre_evento=?, fecha=?, organizador=?, descripcion=?, url=? WHERE id=?";
       $q_preparada = $this->pdo->prepare($q);
-      //try {
+      try {
         $q_preparada->execute([$datosEvento['nombre_evento'], $datosEvento['fecha_evento'], $datosEvento['organizador'],
           $datosEvento['descripcion'], $datosEvento['url'], $datosEvento['id_evento']]);
-      /*} catch (PDOException $e) {
-        echo 'Evento inexistente: ' . $e->getMessage();
-      }*/
+      } catch (PDOException $e) {
+        $res = -1;
+      }
+
+      return $res;
     }
   }
 

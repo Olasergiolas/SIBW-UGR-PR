@@ -7,7 +7,9 @@
 <div id="panel_principal" class="columna">
     <div id="contenedor_formulario_evento">
         {% if status == -1 %}
+        {% block error_evento %}
         <h3 id="error_add_evento" class="error">Error al añadir el evento.</h3>
+        {% endblock error_evento %}
         {% endif %}
         
         {% block formulario_evento %}
