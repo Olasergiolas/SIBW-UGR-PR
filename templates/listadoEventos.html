@@ -1,0 +1,23 @@
+{% extends "padre.html" %}
+
+{% block panel_principal %}
+<div id="panel_principal" class="columna">
+    <div id="listado_comentarios" class="contenedor_listado">
+        <h3>Introduzca parte del cuerpo de un evento</h3>
+        <form id="barra_busqueda" action="/listadoEventos.php" method="POST">
+            <input type="text" id="fcuerpo" name="fcuerpo">
+            <input type="submit" value="Filtrar" name="fbtn">
+        </form>
+        {% for evento in eventos %}
+        <a href="/evento.php?ev={{evento.id}}" class="evento_listado">
+            <div class="titulo_evento_listado">
+                {{evento.nombre_evento}} ({{evento.fecha}})
+            </div>
+            
+            <p class="resumen_evento">{{evento.descripcion | slice(0, 200)}}...</p>
+        </a>
+                       
+        {% endfor %}
+    </div>
+</div>
+{% endblock panel_principal %}

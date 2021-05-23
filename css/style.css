@@ -718,10 +718,11 @@ a {
 }
 
 
-#listado_comentarios{
+.contenedor_listado{
     padding-bottom: 10px;
     background-color: white;
-    width: 600px;
+    width: 50vw;
+    min-width: 350px;
     align-self: center;
     justify-self: center;
     display: flex;
@@ -743,6 +744,35 @@ a {
     align-self: flex-end;
     justify-self: flex-start;
     background-color: rgba(39, 39, 39, 0.801)
+}
+
+
+.evento_listado{
+    color: black;
+    font-size: 1.5em;
+    width: 100%;
+    text-align: center;
+}
+
+.evento_listado:hover {
+    background-color: rgb(175, 175, 175);
+}
+
+
+.titulo_evento_listado{
+    font-weight: bold;
+}
+
+
+.evento_listado{
+    margin: 20px;
+}
+
+
+.resumen_evento{
+    font-size: medium;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 

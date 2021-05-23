@@ -336,6 +336,17 @@
       $q_preparada->execute([$imagen['nombre_imagen'], $datosEvento['nombre_evento'], $datosEvento['fecha_evento'],
         $imagen['copyright']]);
     }
+
+    function buscarEventos($contenido){
+      $attr = "%$contenido%";
+
+      $q = "SELECT id, nombre_evento, fecha, descripcion FROM eventos WHERE descripcion LIKE ?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$attr]);
+
+      $resultado = $q_preparada->fetchAll(\PDO::FETCH_ASSOC);
+      return $resultado;
+    }
   }
 
   function procesarPeticion($BD){
