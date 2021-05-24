@@ -400,6 +400,28 @@
 
       return $resultado;
     }
+
+    function setTipoUsuario($username, $tipo){
+      $retorno = true;
+      $this->pdo->beginTransaction();
+      $q = "UPDATE usuarios SET tipo=? WHERE username=?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$tipo, $username]);
+
+      $q = $this->pdo->query("SELECT COUNT(username) FROM usuarios WHERE tipo='superusuario'");
+      $resultado = $q->fetchAll(PDO::FETCH_COLUMN, 0);
+      
+      if ($resultado[0] === "0"){
+        $this->pdo->rollBack();
+        $retorno = false;
+      }
+      
+      else{
+        $this->pdo->commit();
+      }
+      
+      return $retorno;
+    }
   }
 
   function procesarPeticion($BD){

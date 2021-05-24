@@ -68,7 +68,7 @@ body {
 
 
 .contenido-dropdown{
-    margin-top: 50px;
+    margin-top: min(6.5vw, 50px);
     width: 93px;
     justify-content: center;
     align-items: center;

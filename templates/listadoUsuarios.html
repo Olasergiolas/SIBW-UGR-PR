@@ -8,12 +8,18 @@
             <input type="text" name="fusuario">
             <input type="submit" value="Filtrar" name="fbtn">
         </form>
+        
+        {% if not status %}
+        <div id="error_SU" class="error">Debe de haber al menos un superusuario en el sistema</div>
+        {% endif %}
+        
         {% for usuario in usuarios %}
         <div class="usuario_listado">
             <b>Usuario:</b> {{usuario.username}}<br>
-            <form action="/listadoUsuarios.php">
-                <label for="tipo{{usuario.username}}"><b>Tipo: </b></label>
-                <select>
+            <form action="/listadoUsuarios.php" method="POST">
+                <label for="tipo_{{usuario.username}}"><b>Tipo: </b></label>
+                <input type="hidden" name="username" value="{{usuario.username}}">
+                <select name="tipo_{{usuario.username}}">
                     {% for tipo in tipos_usuario %}
                         {% if tipo == usuario.tipo %}
                         <option value="{{tipo}}" selected>{{tipo}}</option>
@@ -23,7 +29,7 @@
                         {% endif %}
                     {% endfor %}
                 </select>
-                <input type="submit" value="Actualizar">
+                <input type="submit" value="Actualizar" name="fbtn">
             </form>
         </div>
         {% endfor %}
