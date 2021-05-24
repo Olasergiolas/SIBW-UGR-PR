@@ -2,5 +2,31 @@
 
 {% block panel_principal %}
 <div id="panel_principal" class="columna">
+    <div id="listado_usuarios" class="contenedor_listado">
+        <h3>Búsqueda de usuarios: </h3>
+        <form id="barra_busqueda_usuarios" action="/listadoUsuarios.php" method="POST">
+            <input type="text" name="fusuario">
+            <input type="submit" value="Filtrar" name="fbtn">
+        </form>
+        {% for usuario in usuarios %}
+        <div class="usuario_listado">
+            <b>Usuario:</b> {{usuario.username}}<br>
+            <form action="/listadoUsuarios.php">
+                <label for="tipo{{usuario.username}}"><b>Tipo: </b></label>
+                <select>
+                    {% for tipo in tipos_usuario %}
+                        {% if tipo == usuario.tipo %}
+                        <option value="{{tipo}}" selected>{{tipo}}</option>
+
+                        {% else %}
+                        <option value="{{tipo}}">{{tipo}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Actualizar">
+            </form>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock panel_principal %}

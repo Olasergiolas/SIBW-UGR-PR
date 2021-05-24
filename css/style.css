@@ -802,6 +802,16 @@ a {
 }
 
 
+.usuario_listado{
+    margin: 10px;
+}
+
+
+#barra_busqueda_usuarios{
+    margin-bottom: 50px;
+}
+
+
 @media (max-width: 865px) {                  
     #logo {
        width: 1.8em;

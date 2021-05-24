@@ -12,8 +12,14 @@
   }
   
   $BD = new BD();
-  $listadoUsuarios = $BD->getUsuarios();
+  $contenido = '';
+  if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $contenido = $_POST['fusuario'];
+  }
+
+  $listadoUsuarios = $BD->getUsuarios($contenido);
+  $tiposUsuario = $BD->getTiposUsuario();
 
   echo $twig->render('listadoUsuarios.html', ['usuario' => $_SESSION['username'], 'tipo_usuario' => $_SESSION['tipo'],
-  'usuarios' => $listadoUsuarios]);
+  'usuarios' => $listadoUsuarios, 'tipos_usuario' => $tiposUsuario]);
 ?>

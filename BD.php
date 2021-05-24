@@ -381,11 +381,22 @@
       return $resultado;
     }
 
-    function getUsuarios(){
-      $q = "SELECT username, tipo FROM usuarios";
+    function getUsuarios($username){
+      $attr = "%$username%";
+
+      $q = "SELECT username, tipo FROM usuarios WHERE username LIKE ?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$attr]);
+      $resultado = $q_preparada->fetchAll(\PDO::FETCH_ASSOC);
+
+      return $resultado;
+    }
+
+    function getTiposUsuario(){
+      $q = "SELECT tipo FROM user_types";
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute();
-      $resultado = $q_preparada->fetchAll(\PDO::FETCH_ASSOC);
+      $resultado = $q_preparada->fetchAll(PDO::FETCH_COLUMN, 0);
 
       return $resultado;
     }
