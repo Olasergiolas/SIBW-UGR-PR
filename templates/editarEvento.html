@@ -14,6 +14,8 @@
     <input type="text" id="forganizador" name="forganizador" value="{{evento.organizador}}" required><br><br>
     <label for="fwebsite">Website:</label><br>
     <input type="text" id="fwebsite" name="fwebsite" value="{{evento.url}}"><br><br>
+    <label for="fetiquetas">Añadir etiquetas (separadas por ,):</label><br>
+    <input type="text" id="fetiquetas" name="fetiquetas" value="{{ evento.etiquetas|join(', ') }}"><br><br>
     <label for="fimagenes[]">Añadir imágenes:</label><br>
     <input type="file" id="fimagenes" name="fimagenes[]" multiple><br><br>
     <label for="fminiatura">Modificar miniatura:</label><br>

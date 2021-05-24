@@ -9,6 +9,9 @@
             <a href="/editarEvento.php?ev={{evento.id}}" class="modificar_evento">Editar</a>
             <a href="/borrarEvento.php?ev={{evento.id}}" class="modificar_evento">Eliminar</a>
             {% endif %}
+            {% if evento.etiquetas is not empty %}
+            <div class="etiquetas_briefing"><b>Etiquetas:</b> {{ evento.etiquetas|join(', ') }}</div>
+            {% endif %}
             <div class="info">
                 <a href="evento.php?ev={{evento.id}}">
                     <p>{{evento.nombre_evento}}</p>

@@ -25,11 +25,16 @@
         $organizador = $_POST['forganizador'];
         $cuerpo = $_POST['cuerpo'];
         $url = $_POST['fwebsite'];
+        $etiquetas = preg_split('/[\ \n\,]+/', $_POST['fetiquetas']);
+
         $nuevaInfoEvento = array('nombre_evento' => $titulo, 'fecha_evento' => $fecha,
             'organizador' => $organizador, 'descripcion' => $cuerpo, 'url' => $url,
             'id_evento' => $idEv);
         
         $status = $BD->editarEvento($nuevaInfoEvento);
+        foreach ($etiquetas as $etiqueta) {
+          $BD->addEtiquetaEvento($etiqueta, $idEv);
+        }
 
         if(isset($_FILES['fminiatura'])){
             $path_miniatura = obtenerImagen();

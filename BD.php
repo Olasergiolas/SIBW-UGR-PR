@@ -59,10 +59,13 @@
           'copyright_imagen' => $res['copyright']);
         array_push($imagenes_galeria, $imagen);
       }
+
+      $etiquetas = $this->getEtiquetasEvento($id);
   
       $evento = array('id_evento' => $id, 'nombre_evento' => $nombreEvento,
       'fecha_evento' => $fechaEvento, 'organizador' => $organizador, 'descripcion' => $descripcion_procesada,
-      'url' => $url, 'imagen_principal' => $imagen_principal, 'imagenes_galeria' => $imagenes_galeria);
+      'url' => $url, 'imagen_principal' => $imagen_principal, 'imagenes_galeria' => $imagenes_galeria,
+      'etiquetas' => $etiquetas);
   
       return $evento;
     }
@@ -136,8 +139,10 @@
       $q_preparada->execute();
 
       while($res = $q_preparada->fetch()){
+        $etiquetas = $this->getEtiquetasEvento($res['id']);
+
         $evento = array('nombre_evento' => $res['nombre_evento'], 'icono' => $res['icono'],
-        'id' => $res['id']);
+        'id' => $res['id'], 'etiquetas' => $etiquetas);
 
         array_push($eventos, $evento);
       }
@@ -345,6 +350,26 @@
       $q_preparada->execute([$attr]);
 
       $resultado = $q_preparada->fetchAll(\PDO::FETCH_ASSOC);
+      return $resultado;
+    }
+
+    function addEtiquetaEvento($etiqueta, $idEv){
+      $q = "INSERT INTO etiquetas VALUES(?, ?)";
+      $q_preparada = $this->pdo->prepare($q);
+      try {
+        $q_preparada->execute([$idEv, $etiqueta]);
+      } catch (PDOException $e) {
+        return -1;
+      }
+      
+    }
+
+    function getEtiquetasEvento($idEv){
+      $q = "SELECT etiqueta FROM etiquetas WHERE id_evento=?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$idEv]);
+      $resultado = $q_preparada->fetchAll(PDO::FETCH_COLUMN, 0);
+
       return $resultado;
     }
   }

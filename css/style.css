@@ -486,12 +486,12 @@ body {
 
 
 .event_title {
+    overflow-wrap: break-word;
     margin-left: 50px;
     padding-top: 20px;
     font-style: bold;
     margin-right: 15px;
-    float: left;
-    font-size: 1.3em;
+    font-size: min(2.9vw, 1.3em);
     line-height: 0px;
 }
 
@@ -776,6 +776,30 @@ a {
 }
 
 
+.etiquetas{
+    font-size: 0.85em;
+}
+
+
+.etiquetas_briefing{
+    overflow-wrap: break-word;
+    font-size: min(3vw, 15px);
+    width: 100%;
+    padding: 5px;
+    display: none;
+    align-self: flex-end;
+    justify-self: flex-start;
+    background-color: rgba(39, 39, 39, 0.801);
+    color: white;
+}
+
+
+.evento:hover .etiquetas_briefing{
+    display: block;
+    animation: fadein 0.5s;
+}
+
+
 @media (max-width: 865px) {                  
     #logo {
        width: 1.8em;
@@ -783,7 +807,7 @@ a {
 
 
     .event_title {
-        line-height: 50px;
+        line-height: 25px;
     }
 
 
