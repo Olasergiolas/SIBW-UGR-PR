@@ -18,13 +18,16 @@
             <div id="botones">
                 <a href="./index.php" class="btn">Portada</a>
 
-                <a href="./index.php" class="btn">Eventos</a>
-
-                {% if tipo_usuario == 'moderador' %}
+                {% if tipo_usuario == 'moderador' or tipo_usuario == 'superusuario' %}
                 <a href="./listadoComentarios.php" class="btn">Comentarios</a>
+                {% endif %}
 
-                {% elseif tipo_usuario == 'gestor' %}
-                <a href="/listadoEventos.php" class="btn">Listado Eventos</a>
+                {% if tipo_usuario == 'gestor' or tipo_usuario == 'superusuario' %}
+                <a href="/listadoEventos.php" class="btn">Eventos</a>
+                {% endif %}
+
+                {% if tipo_usuario == 'superusuario' %}
+                <a href="/listadoUsuarios.php" class="btn">Usuarios</a>
                 {% endif %}
 
                 {% if usuario %}

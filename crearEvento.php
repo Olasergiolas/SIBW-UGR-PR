@@ -8,7 +8,7 @@
 
   session_start();
   $status = 1;
-  if ($_SESSION['tipo'] != 'gestor'){
+  if ($_SESSION['tipo'] != 'gestor' and $_SESSION['tipo'] != 'superusuario'){
     http_response_code(403);
     die('No tienes acceso a esta sección');
   }
@@ -38,5 +38,5 @@
     }
   }
 
-  echo $twig->render('crearEvento.html', ['usuario' => $_SESSION['username'], 'status' => $status]);
+  echo $twig->render('crearEvento.html', ['usuario' => $_SESSION['username'], 'status' => $status, 'tipo_usuario' => $_SESSION['tipo']]);
 ?>

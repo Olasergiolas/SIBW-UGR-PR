@@ -282,6 +282,10 @@
     function addEvento($datosEvento, $imagenes){
       $res = true;
 
+      if (empty($datosEvento['miniatura'])){
+        $datosEvento['miniatura'] = 'default_event.jpg';
+      }
+
       $q = "INSERT INTO eventos(nombre_evento, fecha, organizador, descripcion, url, icono)
         VALUES (?, ?, ?, ?, ?, ?)";
       $q_preparada = $this->pdo->prepare($q);
@@ -330,16 +334,20 @@
     }
 
     function editarMiniaturaEvento($idEv, $nombreMiniatura){
-      $q = "UPDATE eventos SET icono=? WHERE id=?";
-      $q_preparada = $this->pdo->prepare($q);
-      $q_preparada->execute([$nombreMiniatura, $idEv]);
+      if (!empty($nombreMiniatura)){
+        $q = "UPDATE eventos SET icono=? WHERE id=?";
+        $q_preparada = $this->pdo->prepare($q);
+        $q_preparada->execute([$nombreMiniatura, $idEv]);
+      }
     }
 
     function addFotografiaEvento($datosEvento, $imagen){
-      $q = "INSERT INTO imagenes VALUES(?, ?, ?, ?)";
-      $q_preparada = $this->pdo->prepare($q);
-      $q_preparada->execute([$imagen['nombre_imagen'], $datosEvento['nombre_evento'], $datosEvento['fecha_evento'],
-        $imagen['copyright']]);
+      if (!empty($imagen['nombre_imagen'])){
+        $q = "INSERT INTO imagenes VALUES(?, ?, ?, ?)";
+        $q_preparada = $this->pdo->prepare($q);
+        $q_preparada->execute([$imagen['nombre_imagen'], $datosEvento['nombre_evento'], $datosEvento['fecha_evento'],
+          $imagen['copyright']]);
+      }
     }
 
     function buscarEventos($contenido){
@@ -369,6 +377,15 @@
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$idEv]);
       $resultado = $q_preparada->fetchAll(PDO::FETCH_COLUMN, 0);
+
+      return $resultado;
+    }
+
+    function getUsuarios(){
+      $q = "SELECT username, tipo FROM usuarios";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute();
+      $resultado = $q_preparada->fetchAll(\PDO::FETCH_ASSOC);
 
       return $resultado;
     }

@@ -5,7 +5,7 @@
     <div class="fila_eventos">
         {% for evento in listaeventos %}
         <div style="background-image: url(../img/{{evento.icono}});" class="evento">
-            {% if tipo_usuario == 'gestor' %}
+            {% if tipo_usuario == 'gestor' or tipo_usuario == 'superusuario'%}
             <a href="/editarEvento.php?ev={{evento.id}}" class="modificar_evento">Editar</a>
             <a href="/borrarEvento.php?ev={{evento.id}}" class="modificar_evento">Eliminar</a>
             {% endif %}
@@ -20,7 +20,7 @@
         </div>
         {% endfor %}
 
-        {% if tipo_usuario == 'gestor' %}
+        {% if tipo_usuario == 'gestor' or tipo_usuario == 'superusuario' %}
         <div style="background-image: url(../img/addEvento.jpg);" class="evento">
             <div class="info">
                 <a href="crearEvento.php">

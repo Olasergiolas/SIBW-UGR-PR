@@ -35,19 +35,21 @@ body {
 
 
 .btn {
+    overflow-wrap: break-word;
+    padding-top: 20px;
+    text-align: center;
     margin-right: 4px;
     margin-bottom: 4px;
-    font-size: 18px;
+    font-size: min(2vw, 20px);
     background-color: #000000;
     color: white;
     border: none;
-    text-align: center;
     text-decoration: none;
     cursor: pointer;
-    padding: 20px;
     padding-bottom: 0px;
     position: relative;
     display: inline-block;
+    width: min(15vw, 150px);
 }
 
 

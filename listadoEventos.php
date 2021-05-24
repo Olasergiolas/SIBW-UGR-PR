@@ -6,7 +6,7 @@
   $twig = new \Twig\Environment($loader);
 
   session_start();
-  if ($_SESSION['tipo'] != 'gestor'){
+  if ($_SESSION['tipo'] != 'gestor' and $_SESSION['tipo'] != 'superusuario'){
     http_response_code(403);
     die('No tienes acceso a esta sección');
   }
