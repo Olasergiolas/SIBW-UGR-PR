@@ -6,14 +6,20 @@
         <link href="../css/style.css" rel="stylesheet" type="text/css">
         {% endblock css %}
         <title>SIBW</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="JS/ajax.js"></script>
     </head>
     <body>
         {% block comentarios %}
         {% endblock comentarios %}
         <header id="cabecera">
-            <a href="index.php">
+            <a id="enlace_logo" href="index.php">
                 <img id="logo" src="../img/logo.png" alt="logo">
             </a>
+
+            <!--<div id="barra_busqueda_principal">TEXTO</div>-->
+            <input id="barra_busqueda_principal" type="text" />
+            <div id="resultados"></div>
 
             <div id="botones">
                 <a href="./index.php" class="btn">Portada</a>

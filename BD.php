@@ -350,6 +350,7 @@
       }
     }
 
+    //  Buscar eventos por descripción destinado al panel de control del gestor
     function buscarEventos($contenido){
       $attr = "%$contenido%";
 
@@ -358,6 +359,21 @@
       $q_preparada->execute([$attr]);
 
       $resultado = $q_preparada->fetchAll(\PDO::FETCH_ASSOC);
+      return $resultado;
+    }
+
+    //  Buscar eventos por nombre y descripción destinado a la barra de búsqueda principal para
+    //  todo el mundo
+    function buscarEventosPublico($contenido){
+      $resultados_desc = $this->buscarEventos($contenido);
+
+      $attr = "%$contenido%";
+      $q = "SELECT id, nombre_evento, fecha, descripcion FROM eventos WHERE nombre_evento LIKE ?";
+      $q_preparada = $this->pdo->prepare($q);
+      $q_preparada->execute([$attr]);
+      $resultado_nombre = $q_preparada->fetchAll(\PDO::FETCH_ASSOC);
+
+      $resultado = array_unique(array_merge($resultado_nombre, $resultados_desc), SORT_REGULAR);
       return $resultado;
     }
 
