@@ -49,7 +49,7 @@ body {
     padding-bottom: 0px;
     position: relative;
     display: inline-block;
-    width: min(15vw, 150px);
+    width: min(13vw, 150px);
 }
 
 
@@ -480,7 +480,7 @@ body {
 
 
 .ico {
-    width: 4vw;
+    width: min(3vw, 50px);
     margin-bottom: 5px;
     max-width: 40px;
     min-width: 0;
@@ -585,7 +585,7 @@ h2 {
 
 
 #logo {
-    width: 2.2em;
+    width: 2.1em;
     padding-right: 10px;
 }
 
@@ -831,7 +831,6 @@ a {
 
 
 #resultados{
-    height: 300px;
     width: 300px;
     position: absolute;
     margin-left: 90px;
@@ -839,6 +838,7 @@ a {
     z-index: 2;
     display: none;
     font-size: medium;
+    border: solid 1px black;
 }
 
 
@@ -861,6 +861,45 @@ a {
 .listado_resultados_principal :hover{
     background-color: #dddddd;
     transition: background-color 0.25s linear;
+}
+
+
+#lupa{
+    display: none;
+}
+
+
+@media (max-width: 1200px) {
+
+    #lupa{
+        display: block;
+        width: 25px;
+        height: 25px;
+        margin-top: 12px;
+        cursor: pointer;
+
+    }
+
+    #barra_busqueda_principal{
+        margin-top: 80px;
+        position: absolute;
+        height: 50px;
+        display: none;
+        -webkit-animation: fadein 0.5s;
+        animation: fadein 0.5s;
+        left:0;
+        right:0;
+        margin-left:auto;
+        margin-right:auto;     
+    }
+
+    #resultados{
+        margin-top: 125px;
+        left:0;
+        right:0;
+        margin-left:auto;
+        margin-right:auto;
+    }
 }
 
 
