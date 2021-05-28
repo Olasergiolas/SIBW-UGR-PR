@@ -1,7 +1,7 @@
 <div class="listado_resultados_principal">
     {% for resultado in resultados %}
         {% if resultado.publicado or tipo_usuario == 'gestor' or tipo_usuario == 'superusuario' %}
-        <a class="resultado" href="/evento.php?ev={{resultado.id}}">{{resultado.nombre_evento}}</a><br>        
+        <a class="resultado" href="/evento.php?ev={{resultado.id}}">{{resultado.nombre_evento | raw}}</a><br>        
         {% endif %}
     {% endfor %}
 </div>

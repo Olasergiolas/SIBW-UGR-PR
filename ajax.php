@@ -19,10 +19,12 @@
     if (strlen($busqueda) > 3){
         $BD = new BD();
         $eventos = $BD->buscarEventosPublico($busqueda);
+        //$eventos[0]['nombre_evento'] = 'tus muertos';
 
-        $datos = $eventos;
-
-        echo $twig->render('resultadosBusqueda.html', ['resultados' => $datos, 'tipo_usuario' => $tipo]);
+        for ($i = 0; $i < count($eventos); $i++){        
+          $eventos[$i]['nombre_evento'] = str_ireplace($busqueda, "<b>".$busqueda."</b>", $eventos[$i]['nombre_evento']);
+        }
+        echo $twig->render('resultadosBusqueda.html', ['resultados' => $eventos, 'tipo_usuario' => $tipo]);
         //echo(json_encode($datos));
     }
 ?>
