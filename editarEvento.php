@@ -26,10 +26,11 @@
         $cuerpo = $_POST['cuerpo'];
         $url = $_POST['fwebsite'];
         $etiquetas = preg_split('/[\ \n\,]+/', $_POST['fetiquetas']);
+        $publicado = $_POST['fpublicado'];
 
         $nuevaInfoEvento = array('nombre_evento' => $titulo, 'fecha_evento' => $fecha,
             'organizador' => $organizador, 'descripcion' => $cuerpo, 'url' => $url,
-            'id_evento' => $idEv);
+            'id_evento' => $idEv, 'publicado' => $publicado);
         
         $status = $BD->editarEvento($nuevaInfoEvento);
         foreach ($etiquetas as $etiqueta) {

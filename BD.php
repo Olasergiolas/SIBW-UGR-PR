@@ -20,7 +20,7 @@
       'copyright_imagen' => "default");
 
       //Petición de la información del evento
-      $q = "SELECT id, nombre_evento, fecha, organizador, descripcion, url
+      $q = "SELECT id, nombre_evento, fecha, organizador, descripcion, url, publicado
         FROM eventos WHERE id = ?";
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$idEv]);
@@ -34,6 +34,7 @@
         $descripcion = $res['descripcion'];
         $url = $res['url'];
         $id = $res['id'];
+        $publicado = $res['publicado'];
       }
       
       //Darle formato al cuerpo del evento
@@ -65,7 +66,7 @@
       $evento = array('id_evento' => $id, 'nombre_evento' => $nombreEvento,
       'fecha_evento' => $fechaEvento, 'organizador' => $organizador, 'descripcion' => $descripcion_procesada,
       'url' => $url, 'imagen_principal' => $imagen_principal, 'imagenes_galeria' => $imagenes_galeria,
-      'etiquetas' => $etiquetas);
+      'etiquetas' => $etiquetas, 'publicado' => $publicado);
   
       return $evento;
     }
@@ -134,7 +135,7 @@
     function getEventosBriefing(){
       $eventos = array();
 
-      $q = "SELECT nombre_evento, icono, id FROM eventos";
+      $q = "SELECT nombre_evento, icono, id, publicado FROM eventos";
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute();
 
@@ -142,7 +143,7 @@
         $etiquetas = $this->getEtiquetasEvento($res['id']);
 
         $evento = array('nombre_evento' => $res['nombre_evento'], 'icono' => $res['icono'],
-        'id' => $res['id'], 'etiquetas' => $etiquetas);
+        'id' => $res['id'], 'etiquetas' => $etiquetas, 'publicado' => $res['publicado']);
 
         array_push($eventos, $evento);
       }
@@ -320,12 +321,16 @@
     }
 
     function editarEvento($datosEvento){
+      //var_dump($datosEvento['publicado']);
+      $publicado = ($datosEvento['publicado'] === 'Oculto') ? 0 : 1;
+
       $res = 1;
-      $q = "UPDATE eventos SET nombre_evento=?, fecha=?, organizador=?, descripcion=?, url=? WHERE id=?";
+      
+      $q = "UPDATE eventos SET nombre_evento=?, fecha=?, organizador=?, descripcion=?, url=?, publicado=? WHERE id=?";
       $q_preparada = $this->pdo->prepare($q);
-      try {
-        $q_preparada->execute([$datosEvento['nombre_evento'], $datosEvento['fecha_evento'], $datosEvento['organizador'],
-          $datosEvento['descripcion'], $datosEvento['url'], $datosEvento['id_evento']]);
+      
+      try{
+        $q_preparada->execute([$datosEvento['nombre_evento'], $datosEvento['fecha_evento'], $datosEvento['organizador'], $datosEvento['descripcion'], $datosEvento['url'], $publicado, $datosEvento['id_evento']]);
       } catch (PDOException $e) {
         $res = -1;
       }

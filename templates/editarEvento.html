@@ -16,10 +16,25 @@
     <input type="text" id="fwebsite" name="fwebsite" value="{{evento.url}}"><br><br>
     <label for="fetiquetas">Añadir etiquetas (separadas por ,):</label><br>
     <input type="text" id="fetiquetas" name="fetiquetas" value="{{ evento.etiquetas|join(', ') }}"><br><br>
+
+    <label>Estado:</label><br>
+    {% if evento.publicado %}
+    <input type="radio" id="fpublicado" name="fpublicado" checked>
+    {% else %}
+    <input type="radio" id="fpublicado" name="fpublicado">
+    {% endif %}
+    <label for="fpublicado">Publicado</label><br>
+
+    {% if not evento.publicado %}
+    <input type="radio" id="foculto" name="fpublicado" value="Oculto" checked>
+    {% else %}
+    <input type="radio" id="foculto" name="fpublicado" value="Oculto">
+    {% endif %}
+    <label for="foculto">foculto</label><br><br>
     <label for="fimagenes[]">Añadir imágenes:</label><br>
     <input type="file" id="fimagenes" name="fimagenes[]" multiple><br><br>
     <label for="fminiatura">Modificar miniatura:</label><br>
-    <input type="file" id="fminiatura" name="fminiatura">
+    <input type="file" id="fminiatura" name="fpublicado"><br><br>
 </form>
 
 <textarea rows="30" cols="60" name="cuerpo" form="formulario_edicion_evento" required>{{evento.descripcion}}</textarea>
