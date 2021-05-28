@@ -359,7 +359,7 @@
     function buscarEventos($contenido){
       $attr = "%$contenido%";
 
-      $q = "SELECT id, nombre_evento, fecha, descripcion FROM eventos WHERE descripcion LIKE ?";
+      $q = "SELECT id, nombre_evento, fecha, descripcion, publicado FROM eventos WHERE descripcion LIKE ?";
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$attr]);
 
@@ -373,7 +373,7 @@
       $resultados_desc = $this->buscarEventos($contenido);
 
       $attr = "%$contenido%";
-      $q = "SELECT id, nombre_evento, fecha, descripcion FROM eventos WHERE nombre_evento LIKE ?";
+      $q = "SELECT id, nombre_evento, fecha, descripcion, publicado FROM eventos WHERE nombre_evento LIKE ?";
       $q_preparada = $this->pdo->prepare($q);
       $q_preparada->execute([$attr]);
       $resultado_nombre = $q_preparada->fetchAll(\PDO::FETCH_ASSOC);
