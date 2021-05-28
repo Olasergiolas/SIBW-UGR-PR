@@ -6,12 +6,10 @@ $(document).ready(function() {
       busqueda = $("#barra_busqueda_principal").val();
       
       $.ajax({
-        data: {busqueda},
+        data: {busqueda:busqueda},
         url: 'ajax.php',
-        type: 'get',
-        success: function(respuesta) {
-            procesaRespuestaAjax(respuesta);
-        }
+        method: 'POST',
+        success: procesaRespuestaAjax
       });
   }
   
@@ -19,13 +17,18 @@ $(document).ready(function() {
     if (respuesta.length == 0)
         $("#resultados").hide();
 
-    else{
+    /*else{
         $("#resultados").show();
         res = "";
         respuesta.forEach(element => {
             res += (element + "<br>");
         });
-        $("#resultados").html(res);
+        $("#resultados").html(respuesta);
+    }*/
+
+    else{
+        $("#resultados").show();
+        $("#resultados").html(respuesta);
     }
   }
   

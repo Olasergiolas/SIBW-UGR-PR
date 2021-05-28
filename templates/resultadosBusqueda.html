@@ -1,0 +1,5 @@
+<div class="listado_resultados_principal">
+    {% for resultado in resultados %}
+    <a class="resultado" href="/evento.php?ev={{resultado.id}}">{{resultado.nombre_evento}}</a><br>
+    {% endfor %}
+</div>

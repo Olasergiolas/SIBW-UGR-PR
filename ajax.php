@@ -1,19 +1,19 @@
 <?php
+    require_once "./vendor/autoload.php";
     include("BD.php");
-    header('Content-Type: application/json');
 
-    $busqueda = $_GET['busqueda'];
+    $loader = new \Twig\Loader\FilesystemLoader('templates');
+    $twig = new \Twig\Environment($loader);
+
+    $busqueda = $_POST['busqueda'];
 
     if (strlen($busqueda) > 3){
         $BD = new BD();
         $eventos = $BD->buscarEventosPublico($busqueda);
 
-        $datos = array_column($eventos, 'nombre_evento');
+        $datos = $eventos;
 
-        echo(json_encode($datos));
-    }
-
-    else{
-        echo(json_encode(array()));
+        echo $twig->render('resultadosBusqueda.html', ['resultados' => $datos]);
+        //echo(json_encode($datos));
     }
 ?>
