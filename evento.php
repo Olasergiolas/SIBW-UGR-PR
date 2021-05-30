@@ -23,6 +23,13 @@
     $evento = $respuesta['evento'];
     $comentarios = $respuesta['comentarios'];
     $palabras_censuradas = $respuesta['palabras_censuradas'];
+
+    if (!$evento['publicado']){
+      if ($tipo !== 'gestor' and $tipo !== 'superusuario'){
+        http_response_code(403);
+        die('No tienes acceso a este evento');
+      }
+    }
   }
 
   if (isset($_SESSION['username'])){
